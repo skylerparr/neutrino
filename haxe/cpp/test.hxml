@@ -1,0 +1,11 @@
+## CPP
+-main TestMain
+-lib munit
+-lib hamcrest
+-cp src
+
+-cp test
+#-D HXCPP_M64
+-cpp build/cpp_test
+
+
