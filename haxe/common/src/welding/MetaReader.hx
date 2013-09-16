@@ -1,4 +1,4 @@
-package com.thoughtorigin.welding;
+package welding;
 interface MetaReader {
     function read(object: Dynamic): MetaInformation;
 }

@@ -1,4 +1,4 @@
-package com.thoughtorigin.interpret;
+package interpret;
 class Import {
 
     public var fullPath: String;

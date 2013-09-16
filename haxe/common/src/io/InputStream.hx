@@ -1,4 +1,4 @@
-package com.thoughtorigin.io;
+package io;
 interface InputStream {
     var bytesAvailable(default,null) : Int;
     var objectEncoding : Int;

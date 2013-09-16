@@ -1,4 +1,4 @@
-package com.thoughtorigin.actions;
+package actions;
 class ClientTypes {
 
     public static inline var GAME: String = "game";

@@ -1,4 +1,4 @@
-package com.thoughtorigin.flash.util;
+package flash.util;
 class NumberFormatter {
     public function new() {
     }

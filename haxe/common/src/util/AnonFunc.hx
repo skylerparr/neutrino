@@ -1,4 +1,4 @@
-package com.thoughtorigin.util;
+package util;
 class AnonFunc {
     public function new() {
     }

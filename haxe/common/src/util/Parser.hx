@@ -1,4 +1,4 @@
-package com.thoughtorigin.util;
+package util;
 class Parser {
     public static function parse(s:String, sep:String):Array<String> {
         var inQuote: Bool = false;

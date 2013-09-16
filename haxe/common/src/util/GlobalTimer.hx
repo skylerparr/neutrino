@@ -1,4 +1,4 @@
-package com.thoughtorigin.util;
+package util;
 
 import haxe.Timer;
 

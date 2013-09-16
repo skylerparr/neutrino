@@ -1,4 +1,4 @@
-package com.thoughtorigin.interpret;
+package interpret;
 class ClassCreator {
 
     public var currentInterpretingState(getCurrentInterpretingState, null): InterpretingState;

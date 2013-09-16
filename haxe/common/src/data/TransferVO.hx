@@ -1,4 +1,4 @@
-package com.thoughtorigin.data;
+package data;
 
 interface TransferVO {
     function toString(): String;

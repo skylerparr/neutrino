@@ -1,4 +1,4 @@
-package com.thoughtorigin.interpret;
+package interpret;
 interface ClassDefinition {
     var packageName(getPackage, null): String;
     var className(getClass, null): String;

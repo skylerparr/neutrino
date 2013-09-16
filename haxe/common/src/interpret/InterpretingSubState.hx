@@ -1,4 +1,4 @@
-package com.thoughtorigin.interpret;
+package interpret;
 enum InterpretingSubState {
     NONE;
     WAITING_NEXT_DEFINITION;

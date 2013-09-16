@@ -1,4 +1,4 @@
-package com.thoughtorigin.mecha.data.linq;
+package mecha.data.linq;
 interface Operator extends AdditionalCriteria {
     function join(model: String): Joiner;
     function where(field: String, value: Dynamic, ?comparator: Comparator = Comparator.EQUAL): AdditionalWhereCriteria;

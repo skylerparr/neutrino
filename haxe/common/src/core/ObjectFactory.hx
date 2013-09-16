@@ -1,4 +1,4 @@
-package com.thoughtorigin.core;
+package core;
 import minject.Injector;
 class ObjectFactory implements ObjectCreator {
 

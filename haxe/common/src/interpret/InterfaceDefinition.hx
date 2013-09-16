@@ -1,4 +1,4 @@
-package com.thoughtorigin.interpret;
+package interpret;
 class InterfaceDefinition {
     public function new() {
     }

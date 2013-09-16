@@ -1,4 +1,4 @@
-package com.thoughtorigin.welding;
+package welding;
 class SimpleMetaInformation implements MetaInformation {
 
     public var _metaName: String;

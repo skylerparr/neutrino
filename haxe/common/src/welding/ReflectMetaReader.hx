@@ -1,4 +1,4 @@
-package com.thoughtorigin.welding;
+package welding;
 class ReflectMetaReader implements MetaReader {
     public function new() {
     }

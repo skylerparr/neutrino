@@ -1,4 +1,4 @@
-package com.thoughtorigin.io;
+package io;
 interface OutputStream {
     var objectEncoding:Int;
     function writeBoolean( value:Bool ):Void;

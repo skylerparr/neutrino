@@ -1,4 +1,4 @@
-package com.thoughtorigin.interpret;
+package interpret;
 class VariableDeclaration {
 
     public var varName: String;

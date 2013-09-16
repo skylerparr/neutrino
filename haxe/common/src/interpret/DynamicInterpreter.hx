@@ -1,4 +1,4 @@
-package com.thoughtorigin.interpret;
+package interpret;
 class DynamicInterpreter {
     public function new() {
     }

@@ -1,4 +1,4 @@
-package com.thoughtorigin.mecha.data.linq;
+package mecha.data.linq;
 enum Comparator {
     EQUAL;
     NOT_EQUAL;

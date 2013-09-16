@@ -1,4 +1,4 @@
-package com.thoughtorigin.interpret;
+package interpret;
 class Operators {
 
     public static inline var PLUS: String = "+";

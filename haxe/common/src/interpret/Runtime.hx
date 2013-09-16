@@ -1,4 +1,4 @@
-package com.thoughtorigin.interpret;
+package interpret;
 class Runtime {
 
     public var packages: Array<String>;

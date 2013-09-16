@@ -1,4 +1,4 @@
-package com.thoughtorigin.core;
+package core;
 interface BaseObject {
     function init(): Void;
     function dispose(): Void;

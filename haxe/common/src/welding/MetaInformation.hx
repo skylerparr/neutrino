@@ -1,4 +1,4 @@
-package com.thoughtorigin.welding;
+package welding;
 interface MetaInformation {
     var metaName(getMetaName, null): String;
     var metaArgs(getMetaArgs, null): Hash<String>;

@@ -1,3 +1,3 @@
-package com.thoughtorigin.vo;
+package vo;
 interface ValueObject {
 }

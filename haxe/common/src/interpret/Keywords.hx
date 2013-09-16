@@ -1,4 +1,4 @@
-package com.thoughtorigin.interpret;
+package interpret;
 class Keywords {
 
     public static inline var PACKAGE: String = "package";

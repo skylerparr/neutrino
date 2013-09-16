@@ -1,4 +1,4 @@
-package com.thoughtorigin.vo;
+package vo;
 class BoundValueObject implements BindableValueObject {
 
     private var _propertyBindings: Map<String, Array<Void->Void>>;

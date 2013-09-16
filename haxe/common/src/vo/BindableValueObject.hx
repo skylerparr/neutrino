@@ -1,4 +1,4 @@
-package com.thoughtorigin.vo;
+package vo;
 interface BindableValueObject {
     /**
      * invokes the update function whenever the property is updated

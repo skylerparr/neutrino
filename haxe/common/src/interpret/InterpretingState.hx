@@ -1,4 +1,4 @@
-package com.thoughtorigin.interpret;
+package interpret;
 enum InterpretingState {
     NONE;
     DEFINING_PACKAGE;
