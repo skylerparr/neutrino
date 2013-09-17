@@ -1,4 +1,4 @@
-package flash.util;
+package util;
 class NumberFormatter {
     public function new() {
     }

@@ -1,4 +1,4 @@
-package com.thoughtorigin.flash.data;
+package data;
 
 interface ApplicationSettings {
     function getBasePath():String;

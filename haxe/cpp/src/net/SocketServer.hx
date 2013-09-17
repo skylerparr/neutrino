@@ -1,4 +1,4 @@
-package com.thoughtorigin.cpp.net;
+package net;
 import cpp.vm.Thread;
 import sys.net.Socket;
 import sys.net.Host;

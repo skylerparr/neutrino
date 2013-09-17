@@ -1,4 +1,4 @@
-package com.thoughtorigin.flash.data;
+package data;
 
 class StaticApplicationSettings implements ApplicationSettings {
     public function new():Void {

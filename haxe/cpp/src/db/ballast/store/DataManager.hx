@@ -1,4 +1,4 @@
-package com.thoughtorigin.cpp.db.ballast.store;
+package db.ballast.store;
 class DataManager {
 
     private static var _tableMap: Map<String, TableDef> = new Map();

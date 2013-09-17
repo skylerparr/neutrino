@@ -1,4 +1,4 @@
-package com.thoughtorigin.cpp.db.ballast.store;
+package db.ballast.store;
 class TableDef {
     public var tableName: String;
     public var fields: Map<String, FieldDef>;

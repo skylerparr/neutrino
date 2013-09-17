@@ -1,11 +1,11 @@
-package cpp.db.ballast.commands;
-import cpp.db.ballast.store.DataType;
-import cpp.db.ballast.store.FieldDef;
-import cpp.db.ballast.store.TableDef;
-import cpp.db.ballast.store.DataManager;
+package db.ballast.commands;
+import db.ballast.store.DataType;
+import db.ballast.store.FieldDef;
+import db.ballast.store.TableDef;
+import db.ballast.store.DataManager;
 import util.Parser;
 import util.Parser;
-import cpp.db.ballast.BallastResultSet;
+import db.ballast.BallastResultSet;
 import sys.db.ResultSet;
 import cpp.db.hxdbc.SQLCommand;
 class CreateCommand implements SQLCommand {

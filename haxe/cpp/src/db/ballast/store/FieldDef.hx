@@ -1,4 +1,4 @@
-package com.thoughtorigin.cpp.db.ballast.store;
+package db.ballast.store;
 
 typedef FieldDef = {
     var name: String;

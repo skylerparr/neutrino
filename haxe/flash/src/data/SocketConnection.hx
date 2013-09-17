@@ -1,4 +1,4 @@
-package com.thoughtorigin.flash.data;
+package data;
 
 import flash.events.IOErrorEvent;
 import flash.events.DataEvent;

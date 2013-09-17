@@ -1,4 +1,4 @@
-package com.thoughtorigin.cpp.db.ballast;
+package db.ballast;
 import sys.db.ResultSet;
 import sys.db.Connection;
 class BallastConnection implements Connection{

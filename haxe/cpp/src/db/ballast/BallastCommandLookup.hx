@@ -1,9 +1,9 @@
-package cpp.db.ballast;
+package db.ballast;
 import haxe.ds.ObjectMap;
-import cpp.db.hxdbc.SQLCommand;
-import cpp.db.hxdbc.CommandLookup;
-import cpp.db.ballast.commands.CreateCommand;
-import cpp.db.ballast.commands.SelectCommand;
+import db.hxdbc.SQLCommand;
+import db.hxdbc.CommandLookup;
+import db.ballast.commands.CreateCommand;
+import db.ballast.commands.SelectCommand;
 
 class BallastCommandLookup implements CommandLookup {
     public function new() {

@@ -1,5 +1,5 @@
-package cpp.db.ballast;
-import cpp.db.ballast.store.TableDef;
+package db.ballast;
+import db.ballast.store.TableDef;
 import sys.db.ResultSet;
 class BallastResultSet implements ResultSet{
     public var length(get,null) : Int;

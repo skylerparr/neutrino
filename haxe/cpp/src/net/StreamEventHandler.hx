@@ -1,4 +1,4 @@
-package cpp.net;
+package net;
 import io.InputOutputStream;
 import io.OutputStream;
 import io.InputStream;

@@ -1,4 +1,4 @@
-package flash.data;
+package data;
 
 import data.TransferVO;
 interface DataService {
