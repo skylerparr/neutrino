@@ -1,4 +1,5 @@
 package net;
+import io.StreamEventHandler;
 import io.InputOutputStream;
 import haxe.io.Output;
 import haxe.io.Error;

@@ -1,0 +1,5 @@
+-main Main
+-js Main.js
+-cp ../common/src
+-cp src
+-lib nodejs

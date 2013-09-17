@@ -1,4 +1,4 @@
-package net;
+package io;
 import io.InputOutputStream;
 import io.OutputStream;
 import io.InputStream;

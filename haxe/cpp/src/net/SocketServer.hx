@@ -1,4 +1,5 @@
 package net;
+import io.StreamEventHandler;
 import cpp.vm.Thread;
 import sys.net.Socket;
 import sys.net.Host;
