@@ -1,6 +1,9 @@
 import massive.munit.TestSuite;
 
 import ExampleTest;
+import signal.NoArgSignalFactoryTest;
+import ui.layer.BasicLayerManagerTest;
+import ui.render.SettingsMappedUIRendererTest;
 
 /**
  * Auto generated Test Suite for MassiveUnit.
@@ -15,5 +18,8 @@ class TestSuite extends massive.munit.TestSuite
 		super();
 
 		add(ExampleTest);
+		add(signal.NoArgSignalFactoryTest);
+		add(ui.layer.BasicLayerManagerTest);
+		add(ui.render.SettingsMappedUIRendererTest);
 	}
 }

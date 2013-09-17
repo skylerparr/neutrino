@@ -1,7 +1,9 @@
 import massive.munit.TestSuite;
 
 import ExampleTest;
+import navigation.ConfigurableStateManagerTest;
 import util.SerializerTest;
+import vo.BoundValueObjectTest;
 
 /**
  * Auto generated Test Suite for MassiveUnit.
@@ -16,6 +18,8 @@ class TestSuite extends massive.munit.TestSuite
 		super();
 
 		add(ExampleTest);
+		add(navigation.ConfigurableStateManagerTest);
 		add(util.SerializerTest);
+		add(vo.BoundValueObjectTest);
 	}
 }

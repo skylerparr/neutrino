@@ -36,7 +36,7 @@ class BoundValueObject implements BindableValueObject {
     }
 
     public function setProperty(propertyName: String, value: Dynamic): Void {
-//        Reflect.setProperty(this, "_" + propertyName, value);
+        Reflect.setProperty(this, propertyName, value);
         if(_propertyBindings == null) {
             return;
         }

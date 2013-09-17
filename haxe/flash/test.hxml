@@ -2,7 +2,10 @@
 -main TestMain
 -lib munit
 -lib hamcrest
+-lib msignal
+-lib mockatoo
 -cp src
+-cp ../common/src
 
 -cp test
 -swf-version 11
