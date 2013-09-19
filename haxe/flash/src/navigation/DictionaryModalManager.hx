@@ -57,7 +57,7 @@ class DictionaryModalManager implements ModalManager {
         viewNameMap.set(name, display);
     }
 
-    public inline function createInputBlocker():DisplayObject {
+    public function createInputBlocker():DisplayObject {
         var retVal: Sprite = new Sprite();
         return retVal;
     }
