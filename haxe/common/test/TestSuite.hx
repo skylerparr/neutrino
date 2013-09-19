@@ -2,6 +2,7 @@ import massive.munit.TestSuite;
 
 import ExampleTest;
 import navigation.ConfigurableStateManagerTest;
+import service.MappedServiceLocatorTest;
 import util.SerializerTest;
 import vo.BoundValueObjectTest;
 
@@ -19,6 +20,7 @@ class TestSuite extends massive.munit.TestSuite
 
 		add(ExampleTest);
 		add(navigation.ConfigurableStateManagerTest);
+		add(service.MappedServiceLocatorTest);
 		add(util.SerializerTest);
 		add(vo.BoundValueObjectTest);
 	}

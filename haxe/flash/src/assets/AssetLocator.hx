@@ -1,4 +1,6 @@
 package assets;
+import flash.display.Bitmap;
+import flash.display.BitmapData;
 interface AssetLocator {
     /**
      * gets an asset by name, onComplete is called when the bitmap data is ready
