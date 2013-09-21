@@ -37,14 +37,20 @@ class BoundValueObject implements BindableValueObject {
 
     public function setProperty(propertyName: String, value: Dynamic): Void {
         Reflect.setProperty(this, propertyName, value);
-        if(_propertyBindings == null) {
+        update(propertyName);
+    }
+
+
+    public function update(propertyName:String):Void {
+        if (_propertyBindings == null) {
             return;
         }
-        var coll: Array<Void->Void> = _propertyBindings.get(propertyName);
-        if(coll != null) {
-            for(func in coll) {
+        var coll:Array<Void -> Void> = _propertyBindings.get(propertyName);
+        if (coll != null) {
+            for (func in coll) {
                 func();
             }
         }
+
     }
 }
