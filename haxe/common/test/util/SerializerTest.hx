@@ -185,7 +185,7 @@ class SerializerTest {
     }
 
     @Test
-    public function shouldBeAbleTodeserializeAndPutNullsIntoArrays(): Void {
+    public function shouldBeAbleToDeserializeAndPutNullsIntoArrays(): Void {
         var s5: Sample5 = new Sample5();
         s5.array.push(null);
         s5.array.push(null);
@@ -196,10 +196,30 @@ class SerializerTest {
         Assert.areEqual(null, v.array[1]);
         Assert.areEqual(null, v.array[2]);
     }
+
+    @Test
+    public function shouldNotAssignToAFieldThatDoesNotExist(): Void {
+        var data: Dynamic = {__type: "util.Sample1", name:"couch", value: [{foo: "bar"}]};
+        var v: Sample1 = Serializer.deserialize(data);
+        Assert.isNotNull(v);
+    }
+
+    @Test
+    public function shouldPopulateArrayOfArray(): Void {
+        var data: Dynamic = {__type: "util.Sample1", name:"couch", cats:[[{__type:"util.Sample2", count: 2}]]};
+        var v: Sample1 = Serializer.deserialize(data);
+        var d: Dynamic = v.cats;
+        Assert.isTrue(Std.is(d, Array));
+        d = d[0];
+        Assert.isTrue(Std.is(d, Array));
+        d = d[0];
+        Assert.isNotNull(v.cats[0][0]);
+    }
 }
 
 class Sample1 implements ValueObject {
     public var name: String;
+    public var cats: Array<Array<Sample2>>;
 
     public function new() {
 

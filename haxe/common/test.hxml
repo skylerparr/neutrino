@@ -3,6 +3,9 @@
 -lib munit
 -lib hamcrest
 -lib mockatoo
+--no-inline
+-debug
+-D fdb
 -cp src
 
 -cp test

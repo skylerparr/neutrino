@@ -78,27 +78,34 @@ class Serializer {
     }
 
     public static inline function deserialize(serial:Dynamic):Dynamic {
-        var retVal:Dynamic = createInstance(serial);
+        var retVal: Dynamic = null;
+        if(Std.is(serial, Array)) {
+            retVal = [];
+        } else {
+            retVal = createInstance(serial);
+        }
         assignDeserial(retVal, serial);
         return retVal;
     }
 
     private static inline function assignDeserial(retVal: Dynamic, value: Dynamic): Void {
-        var fields:Array<String> = Reflect.fields(value);
+        var fields:Array<Dynamic> = Reflect.fields(value);
+        if(fields.length == 0) {
+            fields = [0];
+        }
         for (field in fields) {
             if (field == "__type") {
                 continue;
             }
             var fieldValue:Dynamic = Reflect.getProperty(value, field);
+            if(fieldValue == null) {
+                fieldValue = value[0];
+            }
             if (isNative(fieldValue)) {
-                try {
-                    Reflect.setProperty(retVal, field, fieldValue);
-                } catch (e:Dynamic) {
-//swallow
-                }
+                Reflect.setProperty(retVal, field, fieldValue);
             } else {
                 if(Std.is(fieldValue, Array)) {
-                    var array: Array<Dynamic> = new Array();
+                    var array: Array<Dynamic> = [];
                     var it: Array<Dynamic> = cast(fieldValue, Array<Dynamic>);
                     for(item in it) {
                         if (isNative(item)) {
@@ -109,7 +116,11 @@ class Serializer {
                             array.push(deserialize(item));
                         }
                     }
-                    Reflect.setField(retVal, field, array);
+                    try {
+                        Reflect.setField(retVal, field, array);
+                    } catch(e: Dynamic) {
+//swallow
+                    }
                     continue;
                 }
                 resurseDeserial(retVal, fieldValue, field);
@@ -136,8 +147,13 @@ class Serializer {
         var fields:Array<String> = Reflect.fields(value);
         assignDeserial(toAssign, value);
         try {
-            Reflect.setProperty(retVal, assignField, toAssign);
+            if(Std.is(retVal, Array)) {
+                retVal[Std.parseInt(assignField)] = toAssign;
+            } else {
+                Reflect.setProperty(retVal, assignField, toAssign);
+            }
         } catch (e:Dynamic) {
+            trace(e);
 //swallow
         }
     }
