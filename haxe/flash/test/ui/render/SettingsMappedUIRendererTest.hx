@@ -183,7 +183,7 @@ class SettingsMappedUIRendererTest {
         new MockModalController();
         new MockModalActions();
         return Json.stringify({"modals":[
-        {"name": "view1", "map": "ui.render.services.MockModal"}
+        {"name": "view1", "map": "ui.render.mock.MockModal"}
         ]});
     }
 }
