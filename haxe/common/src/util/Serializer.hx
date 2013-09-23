@@ -90,16 +90,20 @@ class Serializer {
 
     private static inline function assignDeserial(retVal: Dynamic, value: Dynamic): Void {
         var fields:Array<Dynamic> = Reflect.fields(value);
-        if(fields.length == 0) {
-            fields = [0];
+        if(fields.length == 0 && Std.is(value, Array)) {
+            fields = [];
+            for(i in 0...value.length) {
+                fields.push(i);
+            }
         }
+        var counter: Int = 0;
         for (field in fields) {
             if (field == "__type") {
                 continue;
             }
             var fieldValue:Dynamic = Reflect.getProperty(value, field);
             if(fieldValue == null) {
-                fieldValue = value[0];
+                fieldValue = value[counter++];
             }
             if (isNative(fieldValue)) {
                 Reflect.setProperty(retVal, field, fieldValue);
