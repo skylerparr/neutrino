@@ -8,7 +8,7 @@ import net.NodeSocket;
 import js.Node;
 import js.Node.NodeNetServer;
 
-class Main {
+class MainSocketTester {
     public function new() {
     }
 
