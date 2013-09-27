@@ -7,23 +7,50 @@ class Serializer {
     }
 
     public static inline function serialize(value:Dynamic):Dynamic {
-        var retVal:Dynamic = {};
+        var retVal: Dynamic = null;
+        if(Std.is(value, Array)) {
+            retVal = [];
+        } else {
+            retVal = {};
+        }
         assignSerial(retVal, value);
         assignType(retVal, value);
         return retVal;
     }
 
     private static inline function assignSerial(retVal:Dynamic, value:Dynamic):Void {
-        var fields:Array<String> = getFields(value);
+        var fields:Array<Dynamic> = getFields(value);
+        if(Std.is(value, Array)) {
+            fields = [];
+            for(i in 0...value.length) {
+                fields.push(i);
+            }
+        }
+        var counter: Int = 0;
         for (field in fields) {
             var fieldValue:Dynamic = null;
             try {
                 fieldValue = Reflect.getProperty(value, field);
             } catch (e:Dynamic) {
-                continue;
+            }
+            if(fieldValue == null) {
+                var index: Int = counter++;
+                var array: Array<Dynamic> = null;
+                try {
+                    array = cast value;
+                } catch(e: Dynamic) {
+
+                }
+                if(array != null && Std.is(array, Array)) {
+                    fieldValue = array[index];
+                }
             }
             if (isNative(fieldValue)) {
-                Reflect.setField(retVal, field, fieldValue);
+                try {
+                    Reflect.setField(retVal, field, fieldValue);
+                } catch(e: Dynamic) {
+                    trace(e);
+                }
             } else {
                 if (Type.typeof(fieldValue) == ValueType.TFunction) {
                     continue;
@@ -32,7 +59,7 @@ class Serializer {
                     continue;
                 }
                 if(Std.is(fieldValue, Array)) {
-                    var array: Array<Dynamic> = new Array();
+                    var array: Array<Dynamic> = [];
                     var it: Array<Dynamic> = cast(fieldValue, Array<Dynamic>);
                     for(item in it) {
                         if (isNative(item)) {
@@ -43,10 +70,14 @@ class Serializer {
                             array.push(serialize(item));
                         }
                     }
-                    Reflect.setField(retVal, field, array);
+                    try {
+                        Reflect.setField(retVal, field, array);
+                    } catch(e: Dynamic) {
+                        trace(e);
+                    }
                     continue;
                 }
-                if(!Std.is(fieldValue, ValueObject)) {
+                if(!Std.is(fieldValue, ValueObject) && !Std.is(value, Array)) {
                     continue;
                 }
                 recurseSerial(retVal, fieldValue, field);
@@ -55,7 +86,14 @@ class Serializer {
     }
 
     private static inline function getFields(value:Dynamic):Array<String> {
-        return Type.getInstanceFields(Type.getClass(value));
+        var cls: Class<Dynamic> = Type.getClass(value);
+        var retVal: Array<String> = null;
+        if(cls == null) {
+            retVal = Reflect.fields(value);
+        } else {
+            retVal = Type.getInstanceFields(cls);
+        }
+        return retVal;
     }
 
     private static inline function isNative(fieldValue:Dynamic):Bool {
@@ -71,10 +109,24 @@ class Serializer {
     }
 
     private static inline function recurseSerial(retVal:Dynamic, value:Dynamic, assignField:String):Void {
-        var toAssign:Dynamic = {};
+        var toAssign: Dynamic = null;
+        if(Std.is(value, Array)) {
+            toAssign = [];
+        } else {
+            toAssign = {};
+        }
         assignSerial(toAssign, value);
+        try {
+            if(Std.is(retVal, Array)) {
+                retVal.push(toAssign);
+            } else {
+                Reflect.setProperty(retVal, assignField, toAssign);
+            }
+        } catch (e:Dynamic) {
+            trace(e);
+            //swallow
+        }
         assignType(toAssign, value);
-        Reflect.setField(retVal, assignField, toAssign);
     }
 
     public static inline function deserialize(serial:Dynamic):Dynamic {

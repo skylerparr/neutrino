@@ -223,6 +223,27 @@ class SerializerTest {
         Assert.isNotNull(d);
         Assert.areEqual(4, v.cats[0][1].count);
     }
+
+    @Test
+    public function shouldSerializeArrayOfArray(): Void {
+        var data: Dynamic = {__type: "util.Sample1", name:"couch", cats:[[{__type:"util.Sample2", count: 2},{__type:"util.Sample2", count: 4}]]};
+        var v: Sample1 = Serializer.deserialize(data);
+        var v: Dynamic = Serializer.serialize(v);
+        var d: Dynamic = v.cats;
+        Assert.isTrue(Std.is(d, Array));
+        d = d[0];
+        Assert.isTrue(Std.is(d, Array));
+        d = d[0];
+        Assert.areEqual(2, v.cats[0][0].count);
+
+        var d: Dynamic = v.cats;
+        d = d[0];
+        Assert.isTrue(Std.is(d, Array));
+        d = d[1];
+        Assert.isNotNull(d);
+        Assert.areEqual(4, v.cats[0][1].count);
+
+    }
 }
 
 class Sample1 implements ValueObject {
