@@ -81,6 +81,7 @@ class ConfigurableStateManager implements StateManager {
         if(init != null) {
             init();
         }
+        navigationDispatcher.update(currentState);
     }
 
     public function updateState(newState:StateData):Void {

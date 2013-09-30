@@ -96,6 +96,15 @@ class ConfigurableStateManagerTest {
         _stateManager.updateState(state);
         Assert.areEqual("1/2/3/4", (cast _stateManager.currentState).messages);
     }
+
+    @Test
+    public function shouldUpdateStateForTheFirstTimeAfterSetupIsCalled(): Void {
+        _stateManager.initialStateData = _gameState;
+        _stateManager.configurationString = "/foo/bar/messages";
+        _stateManager.defaultStateString = "/mouth/face/carrot";
+        _stateManager.setup();
+        _navigationDispatcher.update(cast isNotNull).verify();
+    }
 }
 
 class SampleGameState implements StateData {
