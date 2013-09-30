@@ -7,27 +7,25 @@ import io.InputOutputStream;
 import js.Node;
 
 class NodeSocket implements InputOutputStream {
+    public var bytesAvailable(default, null):Int;
+    public var objectEncoding:Int;
+
     private var _socket: NodeNetSocket;
     private var _handler: StreamEventHandler;
-    private var _buffer: Array<Bytes>;
+    private var _buffer: NodeBuffer;
 
     public function new(socket: NodeNetSocket, handler: StreamEventHandler) {
         _socket = socket;
         _handler = handler;
-        _handler.onConnect(this);
-        _buffer = new Array<Bytes>();
         _socket.addListener("data", onData);
-
+        _handler.onConnect(this);
     }
 
     private function onData(e):Void {
-        trace("e = " + Type.getClass(e));
+        _buffer = e;
+        bytesAvailable = e.length;
         _handler.onData(this);
     }
-
-    public var bytesAvailable:Int;
-
-    public var objectEncoding:Int;
 
     public function send(data: String): Void {
         _socket.write(data);
@@ -69,7 +67,7 @@ class NodeSocket implements InputOutputStream {
     }
 
     public function readUTFBytes(length:Int):String {
-        return null;
+        return _buffer.toString('utf8', 0, length - 1);
     }
 
     public function readUnsignedByte():Int {

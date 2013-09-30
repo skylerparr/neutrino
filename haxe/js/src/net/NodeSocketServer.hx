@@ -25,13 +25,4 @@ class NodeSocketServer {
         });
     }
 
-//    public function onData(e):Void {
-//        trace(e);
-//        trace("onData");
-//
-//        socket.setNoDelay(true);
-//        socket.write("received " + e, "utf8");
-//    }
-
-
 }
