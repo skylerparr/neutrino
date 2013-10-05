@@ -25,13 +25,17 @@ class BufferedWebSocket implements InputOutputStream {
     private var _firstReadByte: Bytes;
     private var _buffer: Array<Bytes>;
 
-    public var bytesAvailable(default,null) : Int;
+    public var bytesAvailable(get,null) : Int;
     public var objectEncoding : Int;
 
     public var connected(get_connected, null): Bool;
 
     private function get_connected(): Bool {
         return _connected;
+    }
+
+    private function get_bytesAvailable(): Int {
+        return bytesAvailable;
     }
 
     public function new(socket: Socket, handler: StreamEventHandler) {
@@ -82,6 +86,7 @@ class BufferedWebSocket implements InputOutputStream {
         for(i in 0...num) {
             byteBuffer.add(_buffer.shift());
         }
+        bytesAvailable = _buffer.length;
         return new BytesInput(byteBuffer.getBytes());
     }
 
@@ -103,6 +108,10 @@ class BufferedWebSocket implements InputOutputStream {
 
     public function readByte():Int {
         return readByteFromBuffer().readByte();
+    }
+
+    public function readBytes(bytes:InputStream, offset:Int = 0, length:Int = 0):Void {
+        throw "unsupported";
     }
 
     public function readDouble():Float {
@@ -151,27 +160,22 @@ class BufferedWebSocket implements InputOutputStream {
         } else {
             socketOutput.writeByte(0);
         }
-        socketOutput.flush();
     }
 
     public function writeByte( value:Int ):Void {
         socketOutput.writeByte(value);
-        socketOutput.flush();
     }
 
     public function writeDouble( value:Float ):Void {
         socketOutput.writeDouble(value);
-        socketOutput.flush();
     }
 
     public function writeFloat( value:Float ):Void {
         socketOutput.writeFloat(value);
-        socketOutput.flush();
     }
 
     public function writeInt( value:Int ):Void {
         socketOutput.writeInt32(value);
-        socketOutput.flush();
     }
 
     public function writeMultiByte( value:String, charSet:String ):Void {

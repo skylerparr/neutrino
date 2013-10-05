@@ -1,4 +1,5 @@
 package data;
+import io.InputStream;
 import io.StreamEventHandler;
 import io.InputOutputStream;
 import flash.net.XMLSocket;
@@ -9,7 +10,7 @@ import flash.events.EventDispatcher;
 
 class XMLSocketIOStream implements InputOutputStream {
 
-    public var bytesAvailable(default,null) : Int;
+    public var bytesAvailable(get,null) : Int;
     public var objectEncoding : Int;
 
     private var _xmlSocket: XMLSocket;
@@ -18,6 +19,10 @@ class XMLSocketIOStream implements InputOutputStream {
     private var _onConnected: Void->Void;
 
     public function new() {
+    }
+
+    private function get_bytesAvailable(): Int {
+        return bytesAvailable;
     }
 
     public function dispose(): Void {
@@ -88,6 +93,10 @@ class XMLSocketIOStream implements InputOutputStream {
     public function readByte():Int {
         throw("not supported, use readUTF");
         return 0;
+    }
+
+    public function readBytes(bytes:InputStream, offset:Int = 0, length:Int = 0):Void {
+        throw("not supported, use readUTF");
     }
 
     public function readDouble():Float {

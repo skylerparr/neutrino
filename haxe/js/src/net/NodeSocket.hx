@@ -1,5 +1,6 @@
 package net;
 
+import io.InputStream;
 import haxe.io.Bytes;
 import io.StreamEventHandler;
 import js.Node.NodeNetSocket;
@@ -7,7 +8,7 @@ import io.InputOutputStream;
 import js.Node;
 
 class NodeSocket implements InputOutputStream {
-    public var bytesAvailable(default, null):Int;
+    public var bytesAvailable(get, null):Int;
     public var objectEncoding:Int;
 
     private var _socket: NodeNetSocket;
@@ -19,6 +20,10 @@ class NodeSocket implements InputOutputStream {
         _handler = handler;
         _socket.addListener("data", onData);
         _handler.onConnect(this);
+    }
+
+    private function get_bytesAvailable():Int {
+        return bytesAvailable;
     }
 
     private function onData(e):Void {
@@ -40,6 +45,9 @@ class NodeSocket implements InputOutputStream {
 
     public function readByte():Int {
         return 0;
+    }
+
+    public function readBytes(bytes:InputStream, offset:Int = 0, length:Int = 0):Void {
     }
 
     public function readDouble():Float {
