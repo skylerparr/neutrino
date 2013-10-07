@@ -81,6 +81,7 @@ class SocketIOStream implements InputOutputStream {
 
     public function readBytes(bytes:InputStream, offset:Int = 0, length:Int = 0):Void {
         _socket.readBytes(cast(bytes, ByteArrayIOStream).byteArray, offset, length);
+        cast(bytes, ByteArrayIOStream).byteArray.position = 0;
     }
 
     public function readDouble():Float {
