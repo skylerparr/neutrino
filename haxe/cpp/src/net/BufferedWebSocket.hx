@@ -155,6 +155,9 @@ class BufferedWebSocket implements InputOutputStream {
     }
 
     public function writeBoolean( value:Bool ):Void {
+        if(!_connected) {
+            return;
+        }
         if(value) {
             socketOutput.writeByte(1);
         } else {
@@ -163,22 +166,37 @@ class BufferedWebSocket implements InputOutputStream {
     }
 
     public function writeByte( value:Int ):Void {
+        if(!_connected) {
+            return;
+        }
         socketOutput.writeByte(value);
     }
 
     public function writeDouble( value:Float ):Void {
+        if(!_connected) {
+            return;
+        }
         socketOutput.writeDouble(value);
     }
 
     public function writeFloat( value:Float ):Void {
+        if(!_connected) {
+            return;
+        }
         socketOutput.writeFloat(value);
     }
 
     public function writeInt( value:Int ):Void {
+        if(!_connected) {
+            return;
+        }
         socketOutput.writeInt32(value);
     }
 
     public function writeMultiByte( value:String, charSet:String ):Void {
+        if(!_connected) {
+            return;
+        }
         socketOutput.writeString(value);
     }
 
@@ -187,18 +205,30 @@ class BufferedWebSocket implements InputOutputStream {
     }
 
     public function writeShort( value:Int ):Void {
+        if(!_connected) {
+            return;
+        }
         socketOutput.writeInt16(value);
     }
 
     public function writeUTF( value:String ):Void {
+        if(!_connected) {
+            return;
+        }
         socketOutput.writeString(value);
     }
 
     public function writeUTFBytes( value:String ):Void {
+        if(!_connected) {
+            return;
+        }
         socketOutput.writeString(value);
     }
 
     public function writeUnsignedInt( value:Int ):Void {
+        if(!_connected) {
+            return;
+        }
         socketOutput.writeUInt24(value);
     }
 

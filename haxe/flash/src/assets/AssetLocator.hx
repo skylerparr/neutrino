@@ -14,6 +14,11 @@ interface AssetLocator {
     function getLazyAsset(name: String, onComplete: BitmapData->Void = null): Bitmap;
 
     /**
+     * loads the data asset on calls onComplete when the data is loaded
+     */
+    function getDataAssetByName(name: String, onComplete: String->Void): Void;
+
+    /**
      * disposes of the asset by name.
      */
     function disposeAsset(name: String): Void;
