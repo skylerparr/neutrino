@@ -14,11 +14,13 @@ class NodeSocket implements InputOutputStream {
     private var _socket: NodeNetSocket;
     private var _handler: StreamEventHandler;
     private var _buffer: NodeBuffer;
+    private var _pos: Int;
 
     public function new(socket: NodeNetSocket, handler: StreamEventHandler) {
         _socket = socket;
         _handler = handler;
         _socket.addListener("data", onData);
+        _socket.addListener("close", onClose);
         _handler.onConnect(this);
     }
 
@@ -28,8 +30,13 @@ class NodeSocket implements InputOutputStream {
 
     private function onData(e):Void {
         _buffer = e;
+        _pos = 0;
         bytesAvailable = e.length;
         _handler.onData(this);
+    }
+
+    private function onClose(e): Void {
+        _handler.onDisconnect(this);
     }
 
     public function send(data: String): Void {
@@ -55,11 +62,15 @@ class NodeSocket implements InputOutputStream {
     }
 
     public function readFloat():Float {
-        return 0;
+        var retVal: Float = _buffer.readFloatLE(_pos);
+        _pos += 4;
+        return retVal;
     }
 
     public function readInt():Int {
-        return 0;
+        var retVal: Int = _buffer.readInt32LE(_pos);
+        _pos += 4;
+        return retVal;
     }
 
     public function readMultiByte(length:Int, charSet:String):String {
@@ -96,9 +107,17 @@ class NodeSocket implements InputOutputStream {
 
     public function writeDouble(value:Float):Void {}
 
-    public function writeFloat(value:Float):Void {}
+    public function writeFloat(value:Float):Void {
+        var b = new NodeBuffer(4);
+        b.writeFloatLE(value, 0);
+        _socket.write(b);
+    }
 
-    public function writeInt(value:Int):Void {}
+    public function writeInt(value:Int):Void {
+        var b = new NodeBuffer(4);
+        b.writeInt32LE(value, 0);
+        _socket.write(b);
+    }
 
     public function writeMultiByte(value:String, charSet:String):Void {}
 
