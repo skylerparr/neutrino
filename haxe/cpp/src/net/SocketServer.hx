@@ -31,7 +31,7 @@ class SocketServer {
             trace(e);
         }
         main.sendMessage("Socket ready");
-        server.listen(10);
+        server.listen(1000);
         while(true) {
             server.setBlocking(false);
             server.waitForRead();

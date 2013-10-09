@@ -41,9 +41,6 @@ class NodeSocket implements InputOutputStream {
 
     public function send(data: String): Void {
         _socket.write(data);
-        var b = new NodeBuffer(1);
-        b.writeInt8(0, 0);
-        _socket.write(b);
     }
 
     public function readBoolean():Bool {
@@ -86,7 +83,7 @@ class NodeSocket implements InputOutputStream {
     }
 
     public function readUTFBytes(length:Int):String {
-        return _buffer.toString('utf8', 0, length - 1);
+        return _buffer.toString('utf8', 0, length);
     }
 
     public function readUnsignedByte():Int {
@@ -103,7 +100,11 @@ class NodeSocket implements InputOutputStream {
 
     public function writeBoolean(value:Bool):Void {}
 
-    public function writeByte(value:Int):Void {}
+    public function writeByte(value:Int):Void {
+        var b = new NodeBuffer(1);
+        b.writeInt8(value, 0);
+        _socket.write(b);
+    }
 
     public function writeDouble(value:Float):Void {}
 
