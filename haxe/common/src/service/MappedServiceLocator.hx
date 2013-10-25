@@ -32,7 +32,7 @@ class MappedServiceLocator implements ServiceLocator {
     }
 
     public function getServiceByName(name:String):Service {
-        var serviceDef: ServiceDef = _mappedServices.get(name);
+        var serviceDef: ServiceDef = cast _mappedServices.get(name);
         var retVal: Service = null;
         if(serviceDef.singleton) {
             if(_singletonServices == null) {

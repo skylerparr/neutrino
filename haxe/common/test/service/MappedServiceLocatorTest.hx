@@ -37,8 +37,8 @@ class MappedServiceLocatorTest {
         var testService: MyService2 = new MyService2();
         _objectCreator.createInstance(MyService2, cast any).returns(testService);
 
-        var service: Service = _serviceLocator.getServiceByName("myService2");
-        Assert.areEqual(testService, service);
+        var serviceX: Service = _serviceLocator.getServiceByName("myService2");
+        Assert.areEqual(testService, serviceX);
     }
 
     @Test
@@ -47,8 +47,8 @@ class MappedServiceLocatorTest {
         var testService: MyService2 = new MyService2();
         _objectCreator.createInstance(MyService2, cast any).returns(testService);
 
-        var service: Service = _serviceLocator.getServiceByName("myService2");
-        var service: Service = _serviceLocator.getServiceByName("myService2");
+        var serviceX: Service = _serviceLocator.getServiceByName("myService2");
+        var serviceY: Service = _serviceLocator.getServiceByName("myService2");
         Assert.isTrue(_objectCreator.createInstance(cast any, cast any).verify(2));
     }
 
@@ -58,8 +58,8 @@ class MappedServiceLocatorTest {
         var testService: MyService2 = new MyService2();
         _objectCreator.createInstance(MyService2, cast any).returns(testService);
 
-        var service: Service = _serviceLocator.getServiceByName("myService2");
-        var service: Service = _serviceLocator.getServiceByName("myService2");
+        var serviceX: Service = _serviceLocator.getServiceByName("myService2");
+        var serviceY: Service = _serviceLocator.getServiceByName("myService2");
         Assert.isTrue(_objectCreator.createInstance(cast any, cast any).verify(1));
     }
 }
