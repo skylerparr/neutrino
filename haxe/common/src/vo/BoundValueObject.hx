@@ -40,7 +40,6 @@ class BoundValueObject implements BindableValueObject {
         update(propertyName);
     }
 
-
     public function update(propertyName:String):Void {
         if (_propertyBindings == null) {
             return;

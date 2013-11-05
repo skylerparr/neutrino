@@ -106,7 +106,9 @@ class ByteArrayIOStream implements InputOutputStream {
     }
 
     public function writeObject(object:Dynamic):Void {
+        #if flash
         byteArray.writeObject(object);
+        #end
     }
 
     public function writeShort(value:Int):Void {

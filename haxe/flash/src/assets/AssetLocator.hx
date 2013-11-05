@@ -22,4 +22,15 @@ interface AssetLocator {
      * disposes of the asset by name.
      */
     function disposeAsset(name: String): Void;
+
+    /**
+     * subscribe to this to be notified when all assets in the queue have been loaded
+     */
+    function subscribeAllAssetsLoaded(onComplete: Void->Void): Void;
+
+    /**
+     * unsubscribe to the all assets loaded
+     */
+    function unSubscribeAllAssetsLoaded(onComplete: Void->Void): Void;
+
 }

@@ -105,7 +105,11 @@ class Serializer {
     }
 
     private static inline function assignType(toAssign: Dynamic, value: Dynamic): Void {
-        Reflect.setField(toAssign, "__type", Type.getClassName(Type.getClass(value)));
+        try {
+            Reflect.setField(toAssign, "__type", Type.getClassName(Type.getClass(value)));
+        } catch(e: Dynamic) {
+
+        }
     }
 
     private static inline function recurseSerial(retVal:Dynamic, value:Dynamic, assignField:String):Void {

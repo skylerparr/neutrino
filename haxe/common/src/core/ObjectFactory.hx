@@ -24,6 +24,10 @@ class ObjectFactory implements ObjectCreator {
         return retVal;
     }
 
+    public static function inject(object: Dynamic): Void {
+        injector.injectInto(object);
+    }
+
     public function createInstance(clazz: Class<Dynamic>, ?constructorArgs: Array<Dynamic>): Dynamic {
         return ObjectFactory.createObject(clazz, constructorArgs);
     }

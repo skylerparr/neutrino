@@ -149,7 +149,9 @@ class SocketIOStream implements InputOutputStream {
     }
 
     public function writeObject(object:Dynamic):Void {
+        #if flash
         _socket.writeObject(object);
+        #end
     }
 
     public function writeShort(value:Int):Void {

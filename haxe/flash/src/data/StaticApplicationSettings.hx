@@ -18,5 +18,6 @@ class StaticApplicationSettings implements ApplicationSettings {
     }
 
     public function getSetting(name:String):String {
+        return "";
     }
 }

@@ -21,6 +21,7 @@ class NodeSocket implements InputOutputStream {
         _handler = handler;
         _socket.addListener("data", onData);
         _socket.addListener("close", onClose);
+        _socket.addListener("error", onError);
         _handler.onConnect(this);
     }
 
@@ -37,6 +38,10 @@ class NodeSocket implements InputOutputStream {
 
     private function onClose(e): Void {
         _handler.onDisconnect(this);
+    }
+
+    private function onError(e): Void {
+        _handler.onError(this);
     }
 
     public function send(data: String): Void {
