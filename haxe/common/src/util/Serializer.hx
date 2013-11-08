@@ -190,7 +190,7 @@ class Serializer {
 
     private static inline function createInstance(value: Dynamic): Dynamic {
         var toAssign: Dynamic;
-        if (value.__type != null) {
+        if (value != null && value.__type != null) {
             try {
                 toAssign = Type.createInstance(Type.resolveClass(value.__type), []);
             } catch (e:Dynamic) {
