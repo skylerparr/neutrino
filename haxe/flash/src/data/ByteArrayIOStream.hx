@@ -127,6 +127,9 @@ class ByteArrayIOStream implements InputOutputStream {
         byteArray.writeUnsignedInt(value);
     }
 
+    public function writeBytes(bytes: InputOutputStream, offset: Int = 0, length: Int = 0): Void {
+    }
+
     public function send(data: String): Void {
         writeUTFBytes(data);
     }

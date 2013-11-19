@@ -1,11 +1,13 @@
 package net;
 
+import io.InputOutputStream;
 import io.InputStream;
 import haxe.io.Bytes;
 import io.StreamEventHandler;
 import js.Node.NodeNetSocket;
 import io.InputOutputStream;
 import js.Node;
+import js.Node.NodeBuffer;
 
 class NodeSocket implements InputOutputStream {
     public var bytesAvailable(get, null):Int;
@@ -13,7 +15,7 @@ class NodeSocket implements InputOutputStream {
 
     private var _socket: NodeNetSocket;
     private var _handler: StreamEventHandler;
-    private var _buffer: NodeBuffer;
+    public var buffer: NodeBuffer;
     private var _pos: Int;
 
     public function new(socket: NodeNetSocket, handler: StreamEventHandler) {
@@ -26,13 +28,21 @@ class NodeSocket implements InputOutputStream {
     }
 
     private function get_bytesAvailable():Int {
-        return bytesAvailable;
+        return bytesAvailable - _pos;
     }
 
-    private function onData(e):Void {
-        _buffer = e;
+    private function onData(e: NodeBuffer):Void {
+        if(buffer == null) {
+            buffer = e;
+        } else {
+            if(buffer.length == _pos) {
+                buffer = e;
+            } else {
+                buffer = NodeBuffer.concat([buffer, e]);
+            }
+        }
+        bytesAvailable = buffer.length;
         _pos = 0;
-        bytesAvailable = e.length;
         _handler.onData(this);
     }
 
@@ -56,7 +66,9 @@ class NodeSocket implements InputOutputStream {
         return 0;
     }
 
-    public function readBytes(bytes:InputStream, offset:Int = 0, length:Int = 0):Void {
+    public function readBytes(bytes:InputOutputStream, offset:Int = 0, length:Int = 0):Void {
+        bytes.writeBytes(this, offset + _pos, length + _pos);
+        _pos += offset + length;
     }
 
     public function readDouble():Float {
@@ -64,13 +76,13 @@ class NodeSocket implements InputOutputStream {
     }
 
     public function readFloat():Float {
-        var retVal: Float = _buffer.readFloatLE(_pos);
+        var retVal: Float = buffer.readFloatLE(_pos);
         _pos += 4;
         return retVal;
     }
 
     public function readInt():Int {
-        var retVal: Int = _buffer.readInt32LE(_pos);
+        var retVal: Int = buffer.readInt32LE(_pos);
         _pos += 4;
         return retVal;
     }
@@ -88,7 +100,9 @@ class NodeSocket implements InputOutputStream {
     }
 
     public function readUTFBytes(length:Int):String {
-        return _buffer.toString('utf8', 0, length);
+        var retVal: String = buffer.toString('utf8', _pos, length);
+        _pos += length;
+        return retVal;
     }
 
     public function readUnsignedByte():Int {
@@ -136,5 +150,9 @@ class NodeSocket implements InputOutputStream {
     public function writeUTFBytes(value:String):Void {}
 
     public function writeUnsignedInt(value:Int):Void {}
+
+    public function writeBytes(bytes: InputOutputStream, offset: Int = 0, length: Int = 0): Void {
+        cast (bytes).buffer.copy(buffer, _pos, offset, length);
+    }
 
 }

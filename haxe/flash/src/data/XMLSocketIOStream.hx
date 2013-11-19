@@ -179,6 +179,10 @@ class XMLSocketIOStream implements InputOutputStream {
         throw("not supported, use send");
     }
 
+    public function writeBytes(bytes: InputOutputStream, offset: Int = 0, length: Int = 0): Void {
+        throw("not supported, use send");
+    }
+
     public function writeUnsignedInt(value:Int):Void {
         throw("not supported, use send");
     }

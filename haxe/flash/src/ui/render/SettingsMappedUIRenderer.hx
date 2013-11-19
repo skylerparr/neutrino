@@ -63,7 +63,7 @@ class SettingsMappedUIRenderer implements UIRenderer {
             try {
                 Reflect.setProperty(target, field, assignee);
             } catch(e: Dynamic) {
-                trace("field does not exist");
+                trace("[INFO] field " + field + " does not exist");
             }
         }
     }

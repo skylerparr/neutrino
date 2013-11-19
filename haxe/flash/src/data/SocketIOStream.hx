@@ -52,6 +52,10 @@ class SocketIOStream implements InputOutputStream {
         _socket.flush();
     }
 
+    public function close(): Void {
+        _socket.close();
+    }
+
     private function onDataReceived(e: ProgressEvent): Void {
         _handler.onData(this);
     }
@@ -141,6 +145,7 @@ class SocketIOStream implements InputOutputStream {
     }
 
     public function writeInt(value:Int):Void {
+        trace(value);
         _socket.writeInt(value);
     }
 
@@ -168,6 +173,10 @@ class SocketIOStream implements InputOutputStream {
 
     public function writeUnsignedInt(value:Int):Void {
         _socket.writeUnsignedInt(value);
+    }
+
+    public function writeBytes(bytes: InputOutputStream, offset: Int = 0, length: Int = 0): Void {
+
     }
 
     public function send(data: String): Void {

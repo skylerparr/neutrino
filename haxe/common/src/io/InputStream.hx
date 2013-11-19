@@ -4,7 +4,7 @@ interface InputStream {
     var objectEncoding : Int;
     function readBoolean() : Bool;
     function readByte() : Int;
-    function readBytes(bytes: InputStream, offset: Int = 0, length: Int = 0) : Void;
+    function readBytes(bytes: InputOutputStream, offset: Int = 0, length: Int = 0) : Void;
     function readDouble() : Float;
     function readFloat() : Float;
     function readInt() : Int;
