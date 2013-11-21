@@ -17,7 +17,7 @@ class StaticApplicationSettings implements ApplicationSettings {
         return null;
     }
 
-    public function getSetting(name:String):String {
+    public function getSetting(name:String):Dynamic {
         return "";
     }
 }
