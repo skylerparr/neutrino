@@ -10,6 +10,8 @@ import io.StreamEventHandler;
 import io.OutputStream;
 import io.InputOutputStream;
 class SocketIOStream implements InputOutputStream {
+    @:isVar
+    public var position(get, set): Int;
 
     public var bytesAvailable(get,null) : Int;
     public var objectEncoding : Int;
@@ -19,6 +21,15 @@ class SocketIOStream implements InputOutputStream {
     private var _handler: StreamEventHandler;
 
     public function new() {
+    }
+
+    public function set_position(value:Int): Int {
+        this.position = value;
+        return position;
+    }
+
+    public function get_position():Int {
+        return position;
     }
 
     private function get_bytesAvailable(): Int {
@@ -183,4 +194,7 @@ class SocketIOStream implements InputOutputStream {
         writeUTFBytes(data);
     }
 
+    public function clear(): Void {
+
+    }
 }

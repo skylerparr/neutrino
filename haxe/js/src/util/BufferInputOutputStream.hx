@@ -6,6 +6,7 @@ import io.InputOutputStream;
 import js.Node;
 
 class BufferInputOutputStream implements InputOutputStream {
+    public var position(get, set): Int;
     @:isVar
     public var bytesAvailable(get,null) : Int;
     public var objectEncoding : Int;
@@ -17,6 +18,15 @@ class BufferInputOutputStream implements InputOutputStream {
         buffer = new NodeBuffer(128);
         bytesAvailable = 0;
         _pos = 0;
+    }
+
+    public function set_position(value:Int): Int {
+        _pos = value;
+        return _pos;
+    }
+
+    public function get_position():Int {
+        return _pos;
     }
 
     private function get_bytesAvailable():Int {
@@ -132,4 +142,7 @@ class BufferInputOutputStream implements InputOutputStream {
         writeUTFBytes(data);
     }
 
+    public function clear(): Void {
+        buffer = new NodeBuffer(128);
+    }
 }

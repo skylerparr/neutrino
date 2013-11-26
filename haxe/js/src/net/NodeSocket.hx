@@ -10,6 +10,8 @@ import js.Node;
 import js.Node.NodeBuffer;
 
 class NodeSocket implements InputOutputStream {
+    public var position(get, set): Int;
+
     public var bytesAvailable(get, null):Int;
     public var objectEncoding:Int;
 
@@ -25,6 +27,14 @@ class NodeSocket implements InputOutputStream {
         _socket.addListener("close", onClose);
         _socket.addListener("error", onError);
         _handler.onConnect(this);
+    }
+
+    public function set_position(value:Int): Int {
+        return 0;
+    }
+
+    public function get_position():Int {
+        return 0;
     }
 
     private function get_bytesAvailable():Int {
@@ -155,4 +165,7 @@ class NodeSocket implements InputOutputStream {
         cast (bytes).buffer.copy(buffer, _pos, offset, length);
     }
 
+    public function clear(): Void {
+
+    }
 }

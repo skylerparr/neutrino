@@ -9,6 +9,8 @@ import flash.events.Event;
 import flash.events.EventDispatcher;
 
 class XMLSocketIOStream implements InputOutputStream {
+    @:isVar
+    public var position(get, set): Int;
 
     public var bytesAvailable(get,null) : Int;
     public var objectEncoding : Int;
@@ -19,6 +21,15 @@ class XMLSocketIOStream implements InputOutputStream {
     private var _onConnected: Void->Void;
 
     public function new() {
+    }
+
+    public function set_position(value:Int): Int {
+        this.position = value;
+        return position;
+    }
+
+    public function get_position():Int {
+        return position;
     }
 
     private function get_bytesAvailable(): Int {
@@ -185,5 +196,9 @@ class XMLSocketIOStream implements InputOutputStream {
 
     public function writeUnsignedInt(value:Int):Void {
         throw("not supported, use send");
+    }
+
+    public function clear(): Void {
+
     }
 }

@@ -240,4 +240,9 @@ class BufferedWebSocket implements InputOutputStream {
         writeUTFBytes(data);
         writeByte(0);
     }
+
+    public function clear(): Void {
+
+    }
 }
+

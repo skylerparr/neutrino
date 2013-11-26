@@ -1,7 +1,15 @@
 package util;
+import io.InputOutputStream;
 import haxe.Json;
 class Parser {
-    public static function parse(s:String, sep:String):Array<String> {
+
+    private var _dataBuffer: InputOutputStream;
+
+    public function new(buffer: InputOutputStream) {
+        _dataBuffer = buffer;
+    }
+
+    public inline function parse(s:String, sep:String):Array<String> {
         var inQuote: Bool = false;
         var char: Int, len = s.length, ret = [], buf = new StringBuf();
         for(i in 0...len) {
@@ -30,14 +38,18 @@ class Parser {
         return ret;
     }
 
-    /**                                                                                                                                              `
+    /**
      * Attempts to join fragmented data and recreate them as functional json objects to be redistributed to the rest
      * of the application
      *
      * @param stringData
      * @return
      */
-    public static inline function parseJSON(stringData:String):Array<Dynamic> {
+    public inline function parseJSON(stringData:String):Array<Dynamic> {
+        if(_dataBuffer != null && _dataBuffer.bytesAvailable > 0) {
+            stringData = _dataBuffer.readUTFBytes(_dataBuffer.bytesAvailable) + stringData;
+            _dataBuffer.clear();
+        }
         var retVal:Array<Dynamic> = new Array<Dynamic>();
         var braceCounter:Int = 0;
         var strLength:Int = stringData.length;
@@ -96,11 +108,11 @@ class Parser {
                 }
             }
         }
-        //todo: debug. This helps with partial data sets
-//        if (insideQuotes || braceCounter > 0) {
-//            _dataBuffer.writeUTFBytes(stringData.substring());
-//            _dataBuffer.position = 0;
-//        }
+
+        if (insideQuotes || braceCounter > 0 && _dataBuffer != null) {
+            _dataBuffer.writeUTFBytes(stringData.substring(0));
+            _dataBuffer.position = 0;
+        }
         return retVal;
     }
 

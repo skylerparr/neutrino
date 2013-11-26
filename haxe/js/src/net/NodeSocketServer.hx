@@ -16,6 +16,7 @@ class NodeSocketServer {
 
     public function start():Void {
         var server: NodeNetServer = Node.net.createServer(function(s): Void {
+            trace("connected to server");
             new NodeSocket(s, _socketHandler);
         });
         server.listen(_port, function(): Void {

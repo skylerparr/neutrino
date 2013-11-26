@@ -10,6 +10,8 @@ import io.StreamEventHandler;
 import io.OutputStream;
 import io.InputOutputStream;
 class ByteArrayIOStream implements InputOutputStream {
+    @:isVar
+    public var position(get, set): Int;
 
     public var bytesAvailable(get,null) : Int;
     public var objectEncoding : Int;
@@ -19,6 +21,15 @@ class ByteArrayIOStream implements InputOutputStream {
     public function new() {
         byteArray = new ByteArray();
         byteArray.endian = Endian.LITTLE_ENDIAN;
+    }
+
+    public function set_position(value:Int): Int {
+        byteArray.position = value;
+        return byteArray.position;
+    }
+
+    public function get_position():Int {
+        return byteArray.position;
     }
 
     private function get_bytesAvailable(): Int {
@@ -134,4 +145,7 @@ class ByteArrayIOStream implements InputOutputStream {
         writeUTFBytes(data);
     }
 
+    public function clear(): Void {
+        byteArray.clear();
+    }
 }
