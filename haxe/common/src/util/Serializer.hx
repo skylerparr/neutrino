@@ -177,7 +177,7 @@ class Serializer {
                         }
                     }
                     try {
-                        Reflect.setField(retVal, field, array);
+                        Reflect.setProperty(retVal, field, array);
                     } catch(e: Dynamic) {
 //swallow
                     }
