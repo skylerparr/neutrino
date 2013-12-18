@@ -77,6 +77,9 @@ class Serializer {
                     }
                     continue;
                 }
+                if(Std.is(fieldValue, Date)) {
+                    Reflect.setField(retVal, field, fieldValue);
+                }
                 if(!Std.is(fieldValue, ValueObject) && !Std.is(value, Array)) {
                     continue;
                 }
@@ -181,6 +184,9 @@ class Serializer {
                     } catch(e: Dynamic) {
 //swallow
                     }
+                    continue;
+                } else if(Std.is(fieldValue, Date)) {
+                    Reflect.setProperty(retVal, field, fieldValue);
                     continue;
                 }
                 resurseDeserial(retVal, fieldValue, field);

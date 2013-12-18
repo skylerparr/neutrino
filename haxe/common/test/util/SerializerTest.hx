@@ -242,7 +242,23 @@ class SerializerTest {
         d = d[1];
         Assert.isNotNull(d);
         Assert.areEqual(4, v.cats[0][1].count);
+    }
 
+    @Test
+    public function shouldSerializeDates(): Void {
+        var data: Sample7 = new Sample7();
+        data.fooDate = Date.fromTime(984375298);
+        var v: Dynamic = Serializer.serialize(data);
+        Assert.areEqual(Date.fromTime(984375298).getTime(), v.fooDate.getTime());
+    }
+
+    @Test
+    public function shouldDeSerializeDates(): Void {
+        var data: Sample7 = new Sample7();
+        data.fooDate = Date.fromTime(984375298);
+        var v: Dynamic = Serializer.serialize(data);
+        data = cast Serializer.deserialize(v);
+        Assert.areEqual(Date.fromTime(984375298).getTime(), data.fooDate.getTime());
     }
 }
 
@@ -297,5 +313,10 @@ class Sample5 implements ValueObject {
 
 class Sample6 {
     public var foo: String;
+    public function new() {}
+}
+
+class Sample7 {
+    public var fooDate: Date;
     public function new() {}
 }
