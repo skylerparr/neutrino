@@ -113,11 +113,24 @@ class BoundValueObjectTest {
         _vo.updateName("foo");
         Assert.isTrue(propertyUpdated);
     }
+
+    @Test
+    public function shouldNotThrowExceptionIfUnbindingAndNothingWasBound(): Void {
+        _vo.bindProperty("name", function(): Void {
+
+        });
+        _vo.unbindProperty("foo", function(): Void {
+
+        });
+    }
 }
 
 class MockBoundValueObject extends BoundValueObject {
     @:isVar
     public var name(get, null): String;
+
+    @:isVar
+    public var foo(default, null): String;
 
     public function new() {
         super();

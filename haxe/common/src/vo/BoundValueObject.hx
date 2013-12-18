@@ -25,9 +25,9 @@ class BoundValueObject implements BindableValueObject {
         var coll: Array<Void->Void> = _propertyBindings.get(propertyName);
         if(coll != null) {
             coll.remove(updateFunction);
-        }
-        if(coll.length == 0) {
-            _propertyBindings.remove(propertyName);
+            if(coll.length == 0) {
+                _propertyBindings.remove(propertyName);
+            }
         }
     }
 
