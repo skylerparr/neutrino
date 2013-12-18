@@ -165,7 +165,18 @@ class Serializer {
                 fieldValue = value[counter++];
             }
             if (isNative(fieldValue)) {
-                Reflect.setProperty(retVal, field, fieldValue);
+                try {
+                    Reflect.setProperty(retVal, field, fieldValue);
+                } catch(e: Dynamic) {
+                    try {
+                        fieldValue = StringTools.replace(fieldValue, "T", " ");
+                        fieldValue = StringTools.replace(fieldValue, "Z", " ");
+                        fieldValue = fieldValue.split(".")[0];
+                        Reflect.setProperty(retVal, field, Date.fromString(fieldValue));
+                    } catch(e: Dynamic) {
+                        Reflect.setProperty(retVal, field, null);
+                    }
+                }
             } else {
                 if(Std.is(fieldValue, Array)) {
                     var array: Array<Dynamic> = [];
