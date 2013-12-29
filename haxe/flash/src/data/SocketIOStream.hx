@@ -156,7 +156,6 @@ class SocketIOStream implements InputOutputStream {
     }
 
     public function writeInt(value:Int):Void {
-        trace(value);
         _socket.writeInt(value);
     }
 
