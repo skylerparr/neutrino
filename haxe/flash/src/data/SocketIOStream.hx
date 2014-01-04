@@ -141,48 +141,59 @@ class SocketIOStream implements InputOutputStream {
 
     public function writeBoolean(value:Bool):Void {
         _socket.writeBoolean(value);
+        _socket.flush();
     }
 
     public function writeByte(value:Int):Void {
         _socket.writeByte(value);
+        _socket.flush();
     }
 
     public function writeDouble(value:Float):Void {
         _socket.writeDouble(value);
+        _socket.flush();
     }
 
     public function writeFloat(value:Float):Void {
         _socket.writeFloat(value);
+        _socket.flush();
     }
 
     public function writeInt(value:Int):Void {
         _socket.writeInt(value);
+        _socket.flush();
     }
 
     public function writeMultiByte(value:String, charSet:String):Void {
         _socket.writeMultiByte(value, charSet);
+        _socket.flush();
     }
 
     public function writeObject(object:Dynamic):Void {
         #if flash
         _socket.writeObject(object);
+        _socket.flush();
         #end
     }
 
     public function writeShort(value:Int):Void {
         _socket.writeShort(value);
+        _socket.flush();
     }
 
     public function writeUTF(value:String):Void {
         _socket.writeUTF(value);
+        _socket.flush();
     }
 
     public function writeUTFBytes(value:String):Void {
         _socket.writeUTFBytes(value);
+        _socket.flush();
     }
 
     public function writeUnsignedInt(value:Int):Void {
         _socket.writeUnsignedInt(value);
+        _socket.flush();
     }
 
     public function writeBytes(bytes: InputOutputStream, offset: Int = 0, length: Int = 0): Void {
