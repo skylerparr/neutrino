@@ -27,8 +27,11 @@ class BufferedWebSocket implements InputOutputStream {
 
     public var bytesAvailable(get,null) : Int;
     public var objectEncoding : Int;
+    @:isVar
+    public var position(get, set): Int;
 
     public var connected(get_connected, null): Bool;
+
 
     private function get_connected(): Bool {
         return _connected;
@@ -36,6 +39,15 @@ class BufferedWebSocket implements InputOutputStream {
 
     private function get_bytesAvailable(): Int {
         return bytesAvailable;
+    }
+
+    public function set_position(value:Int): Int {
+        this.position = value;
+        return position;
+    }
+
+    public function get_position():Int {
+        return position;
     }
 
     public function new(socket: Socket, handler: StreamEventHandler) {
