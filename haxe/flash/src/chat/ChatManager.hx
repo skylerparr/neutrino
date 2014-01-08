@@ -7,28 +7,43 @@ class ChatManager implements BaseObject {
     public var objectCreator: ObjectCreator;
 
     private var _chatConnector: ChatConnector;
+    private var _connected: Bool;
+
+    private var _chatRooms: List<String>;
 
     public function new() {
     }
 
     public function init():Void {
         _chatConnector = objectCreator.createInstance(ChatConnector);
+        _chatRooms = new List<String>();
     }
 
     public function dispose():Void {
     }
 
     public function connect(onComplete: Void->Void, chatHandler: Dynamic->Void): Void {
+        trace("attempting to connect to chat");
         _chatConnector.connect(function(): Void {
+            trace("chat connected");
             _chatConnector.subscribe(ChatActionNames.RECEIVE_CHAT, function(transferVO: ChatTransferVO): Void {
                 chatHandler(transferVO.data);
             });
             _chatConnector.send(ChatActionNames.CONNECT_TO_CHAT, "");
+            _connected = true;
+            for(room in _chatRooms) {
+                joinChatRoom(room);
+            }
         });
     }
 
     public function joinChatRoom(roomName: String): Void {
-        _chatConnector.send(ChatActionNames.JOIN_CHAT_ROOM, {roomName: roomName});
+        if(_connected) {
+            trace("joined room");
+            _chatConnector.send(ChatActionNames.JOIN_CHAT_ROOM, {roomName: roomName});
+        } else {
+            _chatRooms.push(roomName);
+        }
     }
 
     public function leaveChatRoom(roomName: String): Void {
