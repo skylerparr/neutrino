@@ -174,7 +174,9 @@ class Serializer {
                         fieldValue = fieldValue.split(".")[0];
                         Reflect.setProperty(retVal, field, Date.fromString(fieldValue));
                     } catch(e: Dynamic) {
-                        Reflect.setProperty(retVal, field, null);
+                        if(Reflect.hasField(retVal, field)) {
+                            Reflect.setProperty(retVal, field, null);
+                        }
                     }
                 }
             } else {

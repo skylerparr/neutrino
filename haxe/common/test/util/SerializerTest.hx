@@ -260,14 +260,28 @@ class SerializerTest {
         data = cast Serializer.deserialize(v);
         Assert.areEqual(Date.fromTime(984375298).getTime(), data.fooDate.getTime());
     }
+
+    @Test
+    public function shouldNotFailWhenAssigningToFieldThatDoesNotExist(): Void {
+        var data: Sample1 = new Sample1();
+        var v: Dynamic = Serializer.serialize(data);
+        v.password = "aksdfj";
+        data = cast Serializer.deserialize(v);
+        Assert.isNotNull(data);
+    }
 }
 
 class Sample1 implements ValueObject {
-    public var name: String;
+    public var name(default, set): String;
     public var cats: Array<Array<Sample2>>;
 
     public function new() {
 
+    }
+
+    private function set_name(value:String):String {
+        name = value;
+        return name;
     }
 }
 
