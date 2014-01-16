@@ -20,7 +20,8 @@ class MongoDataLoader implements DataLoader {
                 if(data != null) {
                     for(item in data) {
                         if(Reflect.hasField(item, "_id") && !Std.is(Reflect.field(item, "_id"), String)) {
-                            item._id = item._id;
+                            trace("updating id");
+                            item._id = item._id + "";
                         }
                     }
                 }
@@ -54,6 +55,15 @@ class MongoDataLoader implements DataLoader {
 
     public function destroy(feedName:String, onSuccess:Dynamic -> Void, onFail:String -> Void, destroyObject:Dynamic):Void {
         mongo.collection(feedName, function(err, collection): Void {
+            if(destroyObject != null) {
+                if(Reflect.hasField(destroyObject, "_id")) {
+                    try {
+                        destroyObject._id = MongoIdHelper.mongoIdStr(mongo, destroyObject._id);
+                    } catch(e: Dynamic) {
+
+                    }
+                }
+            }
             collection.remove(destroyObject, function(err, data): Void {
                 onSuccess(destroyObject);
             });
