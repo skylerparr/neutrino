@@ -5,10 +5,12 @@ class ChannelManagerImpl implements ChannelManager {
 
     public var mainChannel(get, null): DataConnection;
 
-    private var _allChannels: Map<String, DataConnection>;
+    private var _allChannels: Map<String, Array<DataConnection>>;
+    private var _connectionIdMap: Map<DataConnection, Array<String>>;
 
     public function new() {
-        _allChannels = new Map<String, DataConnection>();
+        _allChannels = new Map<String, Array<DataConnection>>();
+        _connectionIdMap = new Map<DataConnection, Array<String>>();
     }
 
     private function get_mainChannel(): DataConnection {
@@ -16,11 +18,26 @@ class ChannelManagerImpl implements ChannelManager {
     }
 
     public function getClientChannel(clientId:String):DataConnection {
-        return _allChannels.get(clientId);
+        var connections: Array<DataConnection> = _allChannels.get(clientId);
+        if(connections == null) {
+            return null;
+        }
+        return connections[connections.length - 1];
     }
 
     public function addChannel(clientId: String, stream: DataConnection): Void {
-        _allChannels.set(clientId, stream);
+        var connections: Array<DataConnection> = _allChannels.get(clientId);
+        if(connections == null) {
+            connections = [];
+        }
+        connections.push(stream);
+        _allChannels.set(clientId, connections);
+        var ids: Array<String> = _connectionIdMap.get(stream);
+        if(ids == null) {
+            ids = [];
+        }
+        ids.push(clientId);
+        _connectionIdMap.set(stream, ids);
     }
 
     public function removeChannel(clientId: String): Void {
@@ -29,6 +46,18 @@ class ChannelManagerImpl implements ChannelManager {
 
     public function exists(clientId:String):Bool {
         return _allChannels.exists(clientId);
+    }
+
+    public function getConnectionFromStream(stream:InputOutputStream): DataConnection {
+        throw "not implemented";
+        return null;
+    }
+
+    public function getIdsFromConnection(connection:DataConnection):Array<String> {
+        if(connection == null) {
+            return null;
+        }
+        return _connectionIdMap.get(connection);
     }
 
 }

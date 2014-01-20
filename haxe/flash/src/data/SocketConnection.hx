@@ -30,6 +30,7 @@ class SocketConnection extends EventDispatcher {
 		if(_host == "" || _port < 1024) {
 			return;
 		}
+        trace(_host, _port);
 
 //		Security.loadPolicyFile("xmlsocket://" + _host + ":" + _port);
 		_xmlConnect = new XMLSocket();
