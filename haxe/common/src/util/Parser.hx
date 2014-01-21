@@ -93,11 +93,12 @@ class Parser {
                         var obj:Dynamic = null;
                         try {
                             obj = Json.parse(strObj);
+                            stringData = stringData.substring(i + 1);
                         } catch(e: Dynamic) {
                             obj = Json.parse(strObj.substring(0, strObj.length - 1));
+                            stringData = stringData.substring(i);
                         }
                         retVal.push(obj);
-                        stringData = stringData.substring(i + 1);
                         strLength = stringData.length;
                         i = -1;
                     } catch(e: Dynamic) {
