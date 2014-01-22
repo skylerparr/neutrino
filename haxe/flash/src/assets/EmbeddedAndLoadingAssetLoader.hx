@@ -1,7 +1,9 @@
 package assets;
+import util.StringUtil;
 import flash.utils.ByteArray;
 import flash.display.BitmapData;
 import loader.AssetLoader;
+import openfl.Assets;
 class EmbeddedAndLoadingAssetLoader extends BasicAssetLoader {
 
     public var embeddedClassPackage: String;
@@ -17,7 +19,11 @@ class EmbeddedAndLoadingAssetLoader extends BasicAssetLoader {
             onComplete(bitmapData);
             return;
         } else {
-            trace("class is null");
+            var bitmapData: BitmapData = Assets.getBitmapData(imageName);
+            if(bitmapData != null) {
+                onComplete(bitmapData);
+                return;
+            }
         }
         super.loadImage(imageName, onComplete, onFail);
     }
@@ -29,7 +35,11 @@ class EmbeddedAndLoadingAssetLoader extends BasicAssetLoader {
             onComplete(bytes.readUTFBytes(bytes.length));
             return;
         } else {
-            trace("class is null");
+            var textData: String = Assets.getText(name);
+            if(!StringUtil.isBlank(textData)) {
+                onComplete(textData);
+                return;
+            }
         }
         super.loadText(name, onComplete, onFail);
     }
