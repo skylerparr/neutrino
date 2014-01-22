@@ -54,6 +54,20 @@ class ChatConnector implements Connector {
         return true;
     }
 
+    public function init():Void {
+    }
+
+    public function dispose():Void {
+        _socketConnection.disconnect();
+        _subscriptionsMap = null;
+        _socketConnection = null;
+        _connectCallback = null;
+        _messagesToSend = null;
+        _parser = null;
+        assetLocator = null;
+        clientId = null;
+    }
+
     private function onDataReceived(event: SocketEvent): Void {
         var objs: Array<Dynamic> = _parser.parseJSON(event.data);
         for(data in objs) {
@@ -101,6 +115,7 @@ class ChatConnector implements Connector {
     }
 
     public function onConnectionSettingsLoaded(data: String): Void {
+        trace(data);
         var connData: Dynamic = Json.parse(data);
         _socketConnection.host = connData.host;
         _socketConnection.port = connData.port;

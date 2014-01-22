@@ -5,7 +5,6 @@ import flash.events.DataEvent;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.net.XMLSocket;
-//import flash.system.Security;
 
 class SocketConnection extends EventDispatcher {
 	private var _xmlConnect: XMLSocket;
@@ -26,13 +25,21 @@ class SocketConnection extends EventDispatcher {
 		_xmlConnect.send(data);
 	}
 
+    public function disconnect(): Void {
+        _xmlConnect.removeEventListener(DataEvent.DATA, onDataReceived);
+        _xmlConnect.removeEventListener(Event.CONNECT, onConnect);
+        _xmlConnect.removeEventListener(Event.CLOSE, onDisconnect);
+        _xmlConnect.removeEventListener(IOErrorEvent.IO_ERROR, onIOError);
+        _host = null;
+        _xmlConnect = null;
+    }
+
 	private function createSocket(): Void {
 		if(_host == "" || _port < 1024) {
 			return;
 		}
         trace(_host, _port);
 
-//		Security.loadPolicyFile("xmlsocket://" + _host + ":" + _port);
 		_xmlConnect = new XMLSocket();
 		_xmlConnect.addEventListener(DataEvent.DATA, onDataReceived);
 		_xmlConnect.addEventListener(Event.CONNECT, onConnect);

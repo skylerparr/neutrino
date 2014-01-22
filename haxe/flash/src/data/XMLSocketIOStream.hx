@@ -37,12 +37,7 @@ class XMLSocketIOStream implements InputOutputStream {
     }
 
     public function dispose(): Void {
-        _xmlSocket.close();
-        _xmlSocket.addEventListener(DataEvent.DATA, onDataReceived);
-        _xmlSocket.addEventListener(Event.CONNECT, onConnect);
-        _xmlSocket.addEventListener(Event.CLOSE, onDisconnect);
-        _xmlSocket.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
-        _handler.onDisconnect(this);
+        disconnect();
         _handler = null;
         _buffer = null;
         _xmlSocket = null;
@@ -57,6 +52,17 @@ class XMLSocketIOStream implements InputOutputStream {
         _xmlSocket.addEventListener(Event.CLOSE, onDisconnect);
         _xmlSocket.addEventListener(IOErrorEvent.IO_ERROR, onIOError);
         _xmlSocket.connect(host, port);
+    }
+
+    public function disconnect(): Void {
+        if(_xmlSocket.connected) {
+            _xmlSocket.close();
+        }
+        _xmlSocket.removeEventListener(DataEvent.DATA, onDataReceived);
+        _xmlSocket.removeEventListener(Event.CONNECT, onConnect);
+        _xmlSocket.removeEventListener(Event.CLOSE, onDisconnect);
+        _xmlSocket.removeEventListener(IOErrorEvent.IO_ERROR, onIOError);
+        _handler.onDisconnect(this);
     }
 
     private function onConnect(e:Event):Void {
