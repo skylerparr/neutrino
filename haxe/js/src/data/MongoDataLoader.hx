@@ -15,6 +15,15 @@ class MongoDataLoader implements DataLoader {
     }
 
     private function findInCollection(err: Dynamic, collection: Dynamic, onSuccess: Dynamic->Void, onFail: String->Void, queryData: Dynamic): Void {
+        if(queryData != null) {
+            if(Reflect.hasField(queryData, "_id")) {
+                try {
+                    queryData._id = MongoIdHelper.mongoIdStr(mongo, queryData._id);
+                } catch(e: Dynamic) {
+                    trace(e);
+                }
+            }
+        }
         collection.find(queryData, function(err: Dynamic, cursor): Void {
             cursor.toArray(function(err: Dynamic, data: Array<Dynamic>): Void {
                 if(data != null) {
@@ -37,7 +46,7 @@ class MongoDataLoader implements DataLoader {
                     try {
                         saveObject._id = MongoIdHelper.mongoIdStr(mongo, saveObject._id);
                     } catch(e: Dynamic) {
-
+                        trace(e);
                     }
                 }
             }
