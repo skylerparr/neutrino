@@ -1,5 +1,7 @@
 package auth;
 interface ApplicationAuthentication {
+    var authenticationToken: String;
+
     /**
      * attempts to get the authentication token for this device.
      * if the retrieval is a success the success callback is called with the authentication token

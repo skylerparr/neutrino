@@ -1,4 +1,5 @@
 package auth;
+import util.StringUtil;
 import auth.ApplicationAuthentication;
 import constants.AuthenticationErrorCodes;
 import data.DataLoader;
@@ -9,6 +10,8 @@ class DataLoadApplicationAuthentication implements ApplicationAuthentication {
 
     public var createNewPlayerTokenFeedName: String;
     public var getPlayerTokenFeedName: String;
+
+    public var authenticationToken: String;
 
     public function new() {
     }
@@ -22,7 +25,7 @@ class DataLoadApplicationAuthentication implements ApplicationAuthentication {
             }
         }, function(message: String): Void {
             fail(AuthenticationErrorCodes.SERVER_ERROR);
-        }, {device_id: getUniqueId()});
+        }, {device_id: getAuthToken()});
     }
 
     public function getAuthenticationToken(success:String -> Void, fail:Int -> Void):Void {
@@ -35,7 +38,14 @@ class DataLoadApplicationAuthentication implements ApplicationAuthentication {
             }
         }, function(message: String): Void {
             fail(AuthenticationErrorCodes.SERVER_ERROR);
-        }, {device_id: getUniqueId()});
+        }, {device_id: getAuthToken()});
+    }
+
+    private function getAuthToken(): String {
+        if(StringUtil.isBlank(authenticationToken)) {
+            return getUniqueId();
+        }
+        return authenticationToken;
     }
 
     public function getUniqueId(): String {
