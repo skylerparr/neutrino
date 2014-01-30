@@ -6,6 +6,9 @@
 -lib mockatoo
 -cp src
 -cp ../common/src
+--no-inline
+-debug
+-D fdb
 
 -cp test
 -swf-version 11

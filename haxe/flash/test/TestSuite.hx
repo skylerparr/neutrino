@@ -1,6 +1,7 @@
 import massive.munit.TestSuite;
 
 import auth.DataLoadApplicationAuthenticationTest;
+import display.containers.ContainerTest;
 import ExampleTest;
 import navigation.DictionaryModalManagerTest;
 import ui.layer.BasicLayerManagerTest;
@@ -19,6 +20,7 @@ class TestSuite extends massive.munit.TestSuite
 		super();
 
 		add(auth.DataLoadApplicationAuthenticationTest);
+		add(display.containers.ContainerTest);
 		add(ExampleTest);
 		add(navigation.DictionaryModalManagerTest);
 		add(ui.layer.BasicLayerManagerTest);
