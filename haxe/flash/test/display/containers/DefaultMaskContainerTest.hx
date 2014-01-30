@@ -37,7 +37,7 @@ class DefaultMaskContainerTest {
         Assert.isNotNull(_container.mask);
 
         var newMask: Sprite = new Sprite();
-        _maskContainer.mask = newMask;
+        _maskContainer.maskDisplay = newMask;
         Assert.areEqual(newMask, _container.mask);
     }
 
@@ -47,10 +47,10 @@ class DefaultMaskContainerTest {
         _container.graphics.drawRect(0,0,200,200);
         _container.graphics.endFill();
         _maskContainer = new DefaultMaskContainer(_container);
-        Assert.areEqual(0, _maskContainer.height);
+        Assert.areEqual(0, _maskContainer.displayHeight);
 
-        _maskContainer.height = 100;
-        Assert.areEqual(100, _maskContainer.height);
+        _maskContainer.displayHeight = 100;
+        Assert.areEqual(100, _maskContainer.displayHeight);
 
         Assert.areEqual(100, _container.mask.height);
     }
@@ -61,20 +61,20 @@ class DefaultMaskContainerTest {
         _container.graphics.drawRect(0,0,200,200);
         _container.graphics.endFill();
         _maskContainer = new DefaultMaskContainer(_container);
-        Assert.areEqual(0, _maskContainer.width);
+        Assert.areEqual(0, _maskContainer.displayWidth);
 
-        _maskContainer.width = 100;
-        Assert.areEqual(100, _maskContainer.width);
+        _maskContainer.displayWidth = 100;
+        Assert.areEqual(100, _maskContainer.displayWidth);
 
         Assert.areEqual(100, _container.mask.width);
     }
 
     @Test
     public function shouldSetTheXPosition(): Void {
-        Assert.areEqual(0, _maskContainer.x);
+        Assert.areEqual(0, _maskContainer.displayX);
 
-        _maskContainer.x = 100;
-        Assert.areEqual(100, _maskContainer.x);
+        _maskContainer.displayX = 100;
+        Assert.areEqual(100, _maskContainer.displayX);
 
         Assert.areEqual(100, _container.mask.x);
 
@@ -82,10 +82,10 @@ class DefaultMaskContainerTest {
 
     @Test
     public function shouldSetTheYPosition(): Void {
-        Assert.areEqual(0, _maskContainer.y);
+        Assert.areEqual(0, _maskContainer.displayY);
 
-        _maskContainer.y = 100;
-        Assert.areEqual(100, _maskContainer.y);
+        _maskContainer.displayY = 100;
+        Assert.areEqual(100, _maskContainer.displayY);
 
         Assert.areEqual(100, _container.mask.y);
 
@@ -119,8 +119,8 @@ class DefaultMaskContainerTest {
 
         _container.recalculateBounds();
         Assert.isTrue(cbCalled);
-        Assert.areEqual(200, _maskContainer.mask.width);
-        Assert.areEqual(300, _maskContainer.mask.height);
+        Assert.areEqual(200, _maskContainer.maskDisplay.width);
+        Assert.areEqual(300, _maskContainer.maskDisplay.height);
     }
 
     @Test
@@ -129,8 +129,8 @@ class DefaultMaskContainerTest {
         var disp: Shape = cast getDisplayObject(100, 200);
         _container.addChild(disp);
 
-        _maskContainer.width = 10;
-        _maskContainer.height = 10;
+        _maskContainer.displayWidth = 10;
+        _maskContainer.displayHeight = 10;
 
         disp.graphics.beginFill(0);
         disp.graphics.drawRect(0,0,200, 300);
@@ -143,8 +143,8 @@ class DefaultMaskContainerTest {
 
         _container.recalculateBounds();
         Assert.isTrue(cbCalled);
-        Assert.areEqual(10, _maskContainer.mask.width);
-        Assert.areEqual(10, _maskContainer.mask.height);
+        Assert.areEqual(10, _maskContainer.maskDisplay.width);
+        Assert.areEqual(10, _maskContainer.maskDisplay.height);
     }
 
 

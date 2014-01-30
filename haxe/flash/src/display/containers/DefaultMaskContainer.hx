@@ -6,15 +6,15 @@ import flash.display.Shape;
 import flash.display.DisplayObject;
 class DefaultMaskContainer extends EventDispatcher implements MaskedContainer {
     @:isVar
-    public var mask(get, set): DisplayObject;
+    public var maskDisplay(get, set): DisplayObject;
     @:isVar
-    public var width(get, set): Float;
+    public var displayWidth(get, set): Float;
     @:isVar
-    public var height(get, set): Float;
+    public var displayHeight(get, set): Float;
     @:isVar
-    public var x(get, set): Float;
+    public var displayX(get, set): Float;
     @:isVar
-    public var y(get, set): Float;
+    public var displayY(get, set): Float;
 
     private var _mask: DisplayObject;
     private var _width: Float;
@@ -62,7 +62,7 @@ class DefaultMaskContainer extends EventDispatcher implements MaskedContainer {
         _container.mask = _mask;
     }
 
-    public function set_mask(value:DisplayObject):DisplayObject {
+    public function set_maskDisplay(value:DisplayObject):DisplayObject {
         _mask = value;
         if(_mask != null && _container.rawContains(_mask)) {
             _container.removeRawChild(_mask);
@@ -72,49 +72,49 @@ class DefaultMaskContainer extends EventDispatcher implements MaskedContainer {
         return _mask;
     }
 
-    public function get_mask(): DisplayObject {
+    public function get_maskDisplay(): DisplayObject {
         return _mask;
     }
 
-    public function set_width(value:Float):Float {
+    public function set_displayWidth(value:Float):Float {
         _width = value;
         _isWidthSet = true;
         onRawChildrenChange(null);
         return _width;
     }
 
-    public function set_height(value:Float):Float {
+    public function set_displayHeight(value:Float):Float {
         _height = value;
         _isHeightSet = true;
         onRawChildrenChange(null);
         return _height;
     }
 
-    public function set_x(value:Float):Float {
+    public function set_displayX(value:Float):Float {
         _x = value;
         _mask.x = _x;
         return _x;
     }
 
-    public function set_y(value:Float):Float {
+    public function set_displayY(value:Float):Float {
         _y = value;
         _mask.y = _y;
         return _y;
     }
 
-    public function get_width():Float {
+    public function get_displayWidth():Float {
         return _width;
     }
 
-    public function get_height():Float {
+    public function get_displayHeight():Float {
         return _height;
     }
 
-    public function get_x():Float {
+    public function get_displayX():Float {
         return _x;
     }
 
-    public function get_y():Float {
+    public function get_displayY():Float {
         return _y;
     }
 
