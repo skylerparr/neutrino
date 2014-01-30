@@ -6,17 +6,21 @@ import flash.display.Shape;
 import flash.display.DisplayObject;
 class DefaultMaskContainer extends EventDispatcher implements MaskedContainer {
     @:isVar
-    public var mask(default, set): DisplayObject;
+    public var mask(get, set): DisplayObject;
     @:isVar
-    public var width(default, set): Float;
+    public var width(get, set): Float;
     @:isVar
-    public var height(default, set): Float;
+    public var height(get, set): Float;
     @:isVar
-    public var x(default, set): Float;
+    public var x(get, set): Float;
     @:isVar
-    public var y(default, set): Float;
+    public var y(get, set): Float;
 
     private var _mask: DisplayObject;
+    private var _width: Float;
+    private var _height: Float;
+    private var _x: Float = 0;
+    private var _y: Float = 0;
     private var _container: Container;
     private var _isWidthSet: Bool;
     private var _isHeightSet: Bool;
@@ -41,15 +45,15 @@ class DefaultMaskContainer extends EventDispatcher implements MaskedContainer {
 
     private inline function applyMask(): Void {
         if(!_isWidthSet) {
-            width = _container.rawChildContainer.width;
+            _width = _container.rawChildContainer.width;
         }
         if(!_isHeightSet) {
-            height = _container.rawChildContainer.height;
+            _height = _container.rawChildContainer.height;
         }
         var shapeMaskGraphics: Graphics = (cast _mask).graphics;
         shapeMaskGraphics.clear();
         shapeMaskGraphics.beginFill(0, 0);
-        shapeMaskGraphics.drawRect(0,0,width, height);
+        shapeMaskGraphics.drawRect(0,0,_width, _height);
         shapeMaskGraphics.endFill();
         if(_container.rawContains(_mask)) {
             _container.removeRawChild(_mask);
@@ -59,39 +63,59 @@ class DefaultMaskContainer extends EventDispatcher implements MaskedContainer {
     }
 
     public function set_mask(value:DisplayObject):DisplayObject {
-        if(_mask != null) {
+        _mask = value;
+        if(_mask != null && _container.rawContains(_mask)) {
             _container.removeRawChild(_mask);
         }
         _container.addRawChild(_mask);
-        _mask = value;
         _container.mask = _mask;
         return _mask;
     }
 
+    public function get_mask(): DisplayObject {
+        return _mask;
+    }
+
     public function set_width(value:Float):Float {
-        width = value;
+        _width = value;
         _isWidthSet = true;
         onRawChildrenChange(null);
-        return width;
+        return _width;
     }
 
     public function set_height(value:Float):Float {
-        height = value;
+        _height = value;
         _isHeightSet = true;
         onRawChildrenChange(null);
-        return height;
+        return _height;
     }
 
     public function set_x(value:Float):Float {
-        x = value;
-        _mask.x = x;
-        return x;
+        _x = value;
+        _mask.x = _x;
+        return _x;
     }
 
     public function set_y(value:Float):Float {
-        y = value;
-        _mask.y = y;
-        return y;
+        _y = value;
+        _mask.y = _y;
+        return _y;
+    }
+
+    public function get_width():Float {
+        return _width;
+    }
+
+    public function get_height():Float {
+        return _height;
+    }
+
+    public function get_x():Float {
+        return _x;
+    }
+
+    public function get_y():Float {
+        return _y;
     }
 
 }

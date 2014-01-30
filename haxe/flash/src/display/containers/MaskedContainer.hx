@@ -2,9 +2,9 @@ package display.containers;
 import flash.display.DisplayObject;
 import flash.events.IEventDispatcher;
 interface MaskedContainer extends IEventDispatcher {
-    var mask(default, set): DisplayObject;
-    var width(default, set): Float;
-    var height(default, set): Float;
-    var x(default, set): Float;
-    var y(default, set): Float;
+    var mask(get, set): DisplayObject;
+    var width(get, set): Float;
+    var height(get, set): Float;
+    var x(get, set): Float;
+    var y(get, set): Float;
 }

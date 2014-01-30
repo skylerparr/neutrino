@@ -20,6 +20,7 @@ class DefaultLayoutContainer extends EventDispatcher implements LayoutContainer 
         _container = value;
         _container.addEventListener(ContainerEvent.RAW_CHILDREN_CHANGE, onRawChildrenChange, false, 0, true);
         layoutPolicy = LayoutPolicy.HORIZONTAL_LAYOUT;
+        gap = 0;
     }
 
     private function onRawChildrenChange(ce:ContainerEvent):Void {

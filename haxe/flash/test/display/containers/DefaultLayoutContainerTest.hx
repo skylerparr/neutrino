@@ -66,16 +66,8 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
-
-            Assert.areEqual(0, _container.getChildAt(0).x);
-            Assert.areEqual(100, _container.getChildAt(1).x);
-            Assert.areEqual(110, _container.getChildAt(2).x);
-
-            Assert.areEqual(0, _container.getChildAt(0).y);
-            Assert.areEqual(0, _container.getChildAt(1).y);
-            Assert.areEqual(0, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -85,6 +77,13 @@ class DefaultLayoutContainerTest {
 
         _layoutContainer.refresh();
         Assert.isTrue(cbCalled);
+        Assert.areEqual(0, _container.getChildAt(0).x);
+        Assert.areEqual(100, _container.getChildAt(1).x);
+        Assert.areEqual(110, _container.getChildAt(2).x);
+
+        Assert.areEqual(0, _container.getChildAt(0).y);
+        Assert.areEqual(0, _container.getChildAt(1).y);
+        Assert.areEqual(0, _container.getChildAt(2).y);
     }
 
     @Test
@@ -120,8 +119,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
-
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
             Assert.areEqual(0, _container.getChildAt(0).x);
@@ -131,6 +128,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(343, _container.getChildAt(0).y);
             Assert.areEqual(325, _container.getChildAt(1).y);
             Assert.areEqual(34, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -148,7 +146,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
             Assert.areEqual(0, _container.getChildAt(0).x);
@@ -158,6 +155,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(100, _container.getChildAt(1).y);
             Assert.areEqual(110, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -175,8 +173,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
-
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
             Assert.areEqual(0, _container.getChildAt(0).x);
@@ -188,6 +184,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(100, _container.getChildAt(1).y);
             Assert.areEqual(110, _container.getChildAt(2).y);
             Assert.areEqual(160, _container.getChildAt(3).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -205,7 +202,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
 
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -216,6 +212,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(100, _container.getChildAt(1).y);
             Assert.areEqual(110, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -232,7 +229,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
 
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -243,6 +239,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(0, _container.getChildAt(1).y);
             Assert.areEqual(0, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -261,7 +258,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
 
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -272,6 +268,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(110, _container.getChildAt(1).y);
             Assert.areEqual(130, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -290,7 +287,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
 
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -301,6 +297,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(0, _container.getChildAt(1).y);
             Assert.areEqual(0, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -317,7 +314,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
             Assert.areEqual(0, _container.getChildAt(0).x);
@@ -327,6 +323,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(0, _container.getChildAt(1).y);
             Assert.areEqual(0, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -345,7 +342,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
             Assert.areEqual(0, _container.getChildAt(0).x);
@@ -355,6 +351,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(40, _container.getChildAt(1).y);
             Assert.areEqual(80, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -373,7 +370,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
             Assert.areEqual(0, _container.getChildAt(0).x);
@@ -383,6 +379,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(0, _container.getChildAt(1).y);
             Assert.areEqual(0, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -402,7 +399,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
             Assert.areEqual(0, _container.getChildAt(0).x);
@@ -412,6 +408,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(50, _container.getChildAt(1).y);
             Assert.areEqual(100, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -430,7 +427,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
             Assert.areEqual(0, _container.getChildAt(0).x);
@@ -440,6 +436,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(0, _container.getChildAt(1).y);
             Assert.areEqual(0, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -457,7 +454,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
             Assert.areEqual(0, _container.getChildAt(0).x);
@@ -467,6 +463,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(40, _container.getChildAt(1).y);
             Assert.areEqual(80, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -484,7 +481,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
             Assert.areEqual(0, _container.getChildAt(0).x);
@@ -494,6 +490,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(0, _container.getChildAt(1).y);
             Assert.areEqual(0, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
@@ -512,7 +509,6 @@ class DefaultLayoutContainerTest {
         var cbCalled: Bool = false;
         var handler: LayoutEvent->Void = null;
         handler = function(le: LayoutEvent): Void {
-            cbCalled = true;
             _layoutContainer.removeEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 
             Assert.areEqual(0, _container.getChildAt(0).x);
@@ -522,6 +518,7 @@ class DefaultLayoutContainerTest {
             Assert.areEqual(0, _container.getChildAt(0).y);
             Assert.areEqual(100, _container.getChildAt(1).y);
             Assert.areEqual(110, _container.getChildAt(2).y);
+            cbCalled = true;
         }
         _layoutContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, handler);
 

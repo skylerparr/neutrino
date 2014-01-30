@@ -20,8 +20,6 @@ class DefaultMaskContainerTest {
     public function setup():Void {
         _container = new Container();
         _maskContainer = new DefaultMaskContainer(_container);
-        _maskContainer.x = 0;
-        _maskContainer.y = 0;
     }
 
     @After
@@ -113,8 +111,6 @@ class DefaultMaskContainerTest {
 
         _maskContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, function(le: LayoutEvent): Void {
             cbCalled = true;
-            Assert.areEqual(200, _maskContainer.mask.width);
-            Assert.areEqual(300, _maskContainer.mask.height);
         });
 
         disp.graphics.beginFill(0);
@@ -123,6 +119,8 @@ class DefaultMaskContainerTest {
 
         _container.recalculateBounds();
         Assert.isTrue(cbCalled);
+        Assert.areEqual(200, _maskContainer.mask.width);
+        Assert.areEqual(300, _maskContainer.mask.height);
     }
 
     @Test
@@ -140,13 +138,13 @@ class DefaultMaskContainerTest {
 
         _maskContainer.addEventListener(LayoutEvent.LAYOUT_REFRESH, function(le: LayoutEvent): Void {
             cbCalled = true;
-            Assert.areEqual(10, _maskContainer.mask.width);
-            Assert.areEqual(10, _maskContainer.mask.height);
         });
 
 
         _container.recalculateBounds();
         Assert.isTrue(cbCalled);
+        Assert.areEqual(10, _maskContainer.mask.width);
+        Assert.areEqual(10, _maskContainer.mask.height);
     }
 
 
