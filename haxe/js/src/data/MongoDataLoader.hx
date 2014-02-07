@@ -14,7 +14,7 @@ class MongoDataLoader implements DataLoader {
         });
     }
 
-    private function findInCollection(err: Dynamic, collection: Dynamic, onSuccess: Dynamic->Void, onFail: String->Void, queryData: Dynamic): Void {
+    private inline function findInCollection(err: Dynamic, collection: Dynamic, onSuccess: Dynamic->Void, onFail: String->Void, queryData: Dynamic): Void {
         if(queryData != null) {
             if(Reflect.hasField(queryData, "_id")) {
                 try {
@@ -29,7 +29,6 @@ class MongoDataLoader implements DataLoader {
                 if(data != null) {
                     for(item in data) {
                         if(Reflect.hasField(item, "_id") && !Std.is(Reflect.field(item, "_id"), String)) {
-                            trace("updating id");
                             item._id = item._id + "";
                         }
                     }
@@ -52,10 +51,8 @@ class MongoDataLoader implements DataLoader {
             }
 
             collection.save(saveObject, function(err, data): Void {
-                if(data != null) {
-                    if(Reflect.hasField(data, "_id") && !Std.is(Reflect.field(data, "_id"), String)) {
-                        data._id = data._id;
-                    }
+                if(Reflect.hasField(saveObject, "_id") && !Std.is(Reflect.field(saveObject, "_id"), String)) {
+                    saveObject._id = saveObject._id + "";
                 }
                 onSuccess(saveObject);
             });
