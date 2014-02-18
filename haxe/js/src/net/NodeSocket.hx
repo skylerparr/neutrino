@@ -166,6 +166,6 @@ class NodeSocket implements InputOutputStream {
     }
 
     public function clear(): Void {
-
+        _socket.destroy();
     }
 }
