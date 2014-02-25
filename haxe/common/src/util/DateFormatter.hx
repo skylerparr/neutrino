@@ -154,16 +154,17 @@ class DateFormatter {
         return dayString + hourString + minString + secString;
     }
 
-    public static function prettyStyleDate(timeStamp:Int, currentTime:Int = 0):String {
-
-        var dateNow:Date = Date.now();
-        var date:Date = Date.fromTime(timeStamp * 1000); //Convert to MS
+    public static function prettyStyleDate(timeStamp:Float, currentTime:Float = 0):String {
         var diff:Float = 0;
         if (currentTime != 0) {
             diff = currentTime - timeStamp;
         } else {
-            diff = ((dateNow.getTime() - date.getTime()) / 1000);
+            var dateNow:Date = Date.now();
+            var date:Date = Date.fromTime(timeStamp);
+            diff = ((dateNow.getTime() - date.getTime()));
         }
+
+        diff /= 1000;
 
         var day_diff:Float = Math.floor(diff / 86400);
 
