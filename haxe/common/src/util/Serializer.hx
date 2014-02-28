@@ -58,6 +58,10 @@ class Serializer {
                 if (Type.typeof(fieldValue) == ValueType.TNull) {
                     continue;
                 }
+                if(Type.typeof(fieldValue) == ValueType.TObject) {
+                    Reflect.setField(retVal, field, fieldValue);
+                    continue;
+                }
                 if(Std.is(fieldValue, Array)) {
                     var array: Array<Dynamic> = [];
                     var it: Array<Dynamic> = cast(fieldValue, Array<Dynamic>);

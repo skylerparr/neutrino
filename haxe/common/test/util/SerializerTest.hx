@@ -269,6 +269,14 @@ class SerializerTest {
         data = cast Serializer.deserialize(v);
         Assert.isNotNull(data);
     }
+
+    @Test
+    public function shouldSerializeObjectWithHashAsOneOfTheFields(): Void {
+        var data: Sample8 = new Sample8();
+        data.foo = {bar: "cat"};
+        var v: Dynamic = Serializer.serialize(data);
+        Assert.areEqual("cat", v.foo.bar);
+    }
 }
 
 class Sample1 implements ValueObject {
@@ -332,5 +340,10 @@ class Sample6 {
 
 class Sample7 {
     public var fooDate: Date;
+    public function new() {}
+}
+
+class Sample8 {
+    public var foo: Dynamic;
     public function new() {}
 }
