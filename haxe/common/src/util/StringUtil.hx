@@ -11,7 +11,7 @@ class StringUtil {
         return (value == null || value == "");
     }
 
-    public static inline function addCommas( integer: Int ): String {
+    public static inline function addCommas( integer: Float ): String {
         var intString: String = integer + "";
         var intLen: Int = intString.length;
         if ( intLen <= 3 ) {
@@ -40,5 +40,28 @@ class StringUtil {
 
             return returnString;
         }
+    }
+
+    public static inline function fillDigits(integer: Int, maxDigits): String {
+        var intString: String = integer + "";
+        var intLen: Int = intString.length;
+        var diff: Int = maxDigits - intLen;
+        for(i in 0...diff) {
+            intString = "0" + intString;
+        }
+        return intString;
+    }
+
+    public static inline function addSpaces(string: String, spaceCount: Int = 1): String {
+        var numChars: Int = string.length;
+        var arr: List<String> = new List<String>();
+        for(i in 0...numChars) {
+            arr.add(string.charAt(i));
+        }
+        var spaces: String = "";
+        for(i in 0...spaceCount) {
+            spaces += " ";
+        }
+        return arr.join(spaces);
     }
 }
