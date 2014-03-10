@@ -12,6 +12,7 @@ class ChatManager implements BaseObject {
     private var _chatRooms: List<String>;
 
     private var _chatHandlers: List<Dynamic->Void>;
+    private var _roomListHandler: Array<Dynamic>->Void;
 
     public function new() {
     }
@@ -25,7 +26,7 @@ class ChatManager implements BaseObject {
     public function dispose():Void {
     }
 
-    public function connect(onComplete: Void->Void, chatHandler: Dynamic->Void): Void {
+    public function connect(onComplete: Void->Void, chatHandler: Dynamic->Void, roomListHandler: Array<Dynamic>->Void): Void {
         _chatHandlers.push(chatHandler);
         if(_connected) {
             onComplete();
@@ -35,11 +36,13 @@ class ChatManager implements BaseObject {
         _chatConnector.connect(function(): Void {
             trace("chat connected");
             _chatConnector.subscribe(ChatActionNames.RECEIVE_CHAT, onReceiveChat);
+            _chatConnector.subscribe(ChatActionNames.ROOM_LIST, onRoomList);
             _chatConnector.send(ChatActionNames.CONNECT_TO_CHAT, "");
             _connected = true;
             for(room in _chatRooms) {
                 joinChatRoom(room);
             }
+            _roomListHandler = roomListHandler;
             onComplete();
         });
     }
@@ -69,5 +72,13 @@ class ChatManager implements BaseObject {
 
     public function sendChat(message: Dynamic, roomName: String): Void {
         _chatConnector.send(ChatActionNames.RECEIVE_CHAT, {roomName: roomName, message: message});
+    }
+
+    private function onRoomList(t:ChatTransferVO):Void {
+        _roomListHandler(t.data.rooms);
+    }
+
+    public function fetchRooms(): Void {
+        _chatConnector.send(ChatActionNames.GET_CHAT_ROOMS, "");
     }
 }

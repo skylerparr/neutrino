@@ -6,6 +6,7 @@ class ChatActionNames {
     public static inline var JOIN_CHAT_ROOM: String = "join_chat_room";
     public static inline var RECEIVE_CHAT: String = "receive_chat";
     public static inline var LEAVE_CHAT_ROOM: String = "leave_chat_room";
+    public static inline var GET_CHAT_ROOMS: String = "get_chat_rooms";
 
     public function new() {
     }
