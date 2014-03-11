@@ -13,6 +13,7 @@ class ChatManager implements BaseObject {
 
     private var _chatHandlers: List<Dynamic->Void>;
     private var _roomListHandler: Array<Dynamic>->Void;
+    private var _privateRoomCreatedHandler: String->Void;
 
     public function new() {
     }
@@ -26,7 +27,9 @@ class ChatManager implements BaseObject {
     public function dispose():Void {
     }
 
-    public function connect(onComplete: Void->Void, chatHandler: Dynamic->Void, roomListHandler: Array<Dynamic>->Void): Void {
+    public function connect(onComplete: Void->Void, chatHandler: Dynamic->Void,
+                            roomListHandler: Array<Dynamic>->Void,
+                            privateRoomCreatedHandler: String->Void): Void {
         _chatHandlers.push(chatHandler);
         if(_connected) {
             onComplete();
@@ -37,12 +40,14 @@ class ChatManager implements BaseObject {
             trace("chat connected");
             _chatConnector.subscribe(ChatActionNames.RECEIVE_CHAT, onReceiveChat);
             _chatConnector.subscribe(ChatActionNames.ROOM_LIST, onRoomList);
+            _chatConnector.subscribe(ChatActionNames.PRIVATE_CHAT_STARTED, onPrivateChatStarted);
             _chatConnector.send(ChatActionNames.CONNECT_TO_CHAT, "");
             _connected = true;
             for(room in _chatRooms) {
                 joinChatRoom(room);
             }
             _roomListHandler = roomListHandler;
+            _privateRoomCreatedHandler = privateRoomCreatedHandler;
             onComplete();
         });
     }
@@ -80,5 +85,13 @@ class ChatManager implements BaseObject {
 
     public function fetchRooms(): Void {
         _chatConnector.send(ChatActionNames.GET_CHAT_ROOMS, "");
+    }
+
+    public function startPrivateChat(playerId:String):Void {
+        _chatConnector.send(ChatActionNames.START_PRIVATE_CHAT, {chatUserId: playerId});
+    }
+
+    private function onPrivateChatStarted(t:ChatTransferVO):Void {
+        _privateRoomCreatedHandler(t.data.roomName);
     }
 }
