@@ -13,7 +13,7 @@ class ChatManager implements BaseObject {
 
     private var _chatHandlers: List<Dynamic->Void>;
     private var _roomListHandler: Array<Dynamic>->Void;
-    private var _privateRoomCreatedHandler: String->Void;
+    private var _privateRoomCreatedHandler: String->Dynamic->Void;
 
     public function new() {
     }
@@ -29,7 +29,7 @@ class ChatManager implements BaseObject {
 
     public function connect(onComplete: Void->Void, chatHandler: Dynamic->Void,
                             roomListHandler: Array<Dynamic>->Void,
-                            privateRoomCreatedHandler: String->Void): Void {
+                            privateRoomCreatedHandler: String->Dynamic->Void): Void {
         _chatHandlers.push(chatHandler);
         if(_connected) {
             onComplete();
@@ -87,11 +87,11 @@ class ChatManager implements BaseObject {
         _chatConnector.send(ChatActionNames.GET_CHAT_ROOMS, "");
     }
 
-    public function startPrivateChat(playerId:String):Void {
-        _chatConnector.send(ChatActionNames.START_PRIVATE_CHAT, {chatUserId: playerId});
+    public function startPrivateChat(chatUserId:String, data: Dynamic = null):Void {
+        _chatConnector.send(ChatActionNames.START_PRIVATE_CHAT, {chatUserId: chatUserId, data: data});
     }
 
     private function onPrivateChatStarted(t:ChatTransferVO):Void {
-        _privateRoomCreatedHandler(t.data.roomName);
+        _privateRoomCreatedHandler(t.data.roomName, t.data.data);
     }
 }
