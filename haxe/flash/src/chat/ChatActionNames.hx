@@ -9,6 +9,7 @@ class ChatActionNames {
     public static inline var GET_CHAT_ROOMS: String = "get_chat_rooms";
     public static inline var START_PRIVATE_CHAT: String = "start_private_chat";
     public static inline var PRIVATE_CHAT_STARTED: String = "private_chat_started";
+    public static inline var CHAT_CLOSED: String = "chat_closed";
 
     public function new() {
     }

@@ -14,6 +14,7 @@ class ChatManager implements BaseObject {
     private var _chatHandlers: List<Dynamic->Void>;
     private var _roomListHandler: Array<Dynamic>->Void;
     private var _privateRoomCreatedHandler: String->Dynamic->Void;
+    private var _chatRoomRemovedHandler: String->Void;
 
     public function new() {
     }
@@ -29,7 +30,8 @@ class ChatManager implements BaseObject {
 
     public function connect(onComplete: Void->Void, chatHandler: Dynamic->Void,
                             roomListHandler: Array<Dynamic>->Void,
-                            privateRoomCreatedHandler: String->Dynamic->Void): Void {
+                            privateRoomCreatedHandler: String->Dynamic->Void,
+                            chatRoomRemovedHandler: String->Void): Void {
         _chatHandlers.push(chatHandler);
         if(_connected) {
             onComplete();
@@ -41,6 +43,7 @@ class ChatManager implements BaseObject {
             _chatConnector.subscribe(ChatActionNames.RECEIVE_CHAT, onReceiveChat);
             _chatConnector.subscribe(ChatActionNames.ROOM_LIST, onRoomList);
             _chatConnector.subscribe(ChatActionNames.PRIVATE_CHAT_STARTED, onPrivateChatStarted);
+            _chatConnector.subscribe(ChatActionNames.CHAT_CLOSED, onChatRoomRemoved);
             _chatConnector.send(ChatActionNames.CONNECT_TO_CHAT, "");
             _connected = true;
             for(room in _chatRooms) {
@@ -48,6 +51,7 @@ class ChatManager implements BaseObject {
             }
             _roomListHandler = roomListHandler;
             _privateRoomCreatedHandler = privateRoomCreatedHandler;
+            _chatRoomRemovedHandler = chatRoomRemovedHandler;
             onComplete();
         });
     }
@@ -93,5 +97,11 @@ class ChatManager implements BaseObject {
 
     private function onPrivateChatStarted(t:ChatTransferVO):Void {
         _privateRoomCreatedHandler(t.data.roomName, t.data.data);
+    }
+
+    private function onChatRoomRemoved(t:ChatTransferVO):Void {
+        if(_chatRoomRemovedHandler != null) {
+            _chatRoomRemovedHandler(t.data.roomName);
+        }
     }
 }
