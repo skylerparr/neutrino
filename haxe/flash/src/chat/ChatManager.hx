@@ -15,6 +15,7 @@ class ChatManager implements BaseObject {
     private var _roomListHandler: Array<Dynamic>->Void;
     private var _privateRoomCreatedHandler: String->Dynamic->Void;
     private var _chatRoomRemovedHandler: String->Void;
+    private var _chatId: String;
 
     public function new() {
     }
@@ -28,17 +29,17 @@ class ChatManager implements BaseObject {
     public function dispose():Void {
     }
 
-    public function connect(onComplete: Void->Void, chatHandler: Dynamic->Void,
+    public function connect(onComplete: String->Void, chatHandler: Dynamic->Void,
                             roomListHandler: Array<Dynamic>->Void,
                             privateRoomCreatedHandler: String->Dynamic->Void,
                             chatRoomRemovedHandler: String->Void): Void {
         _chatHandlers.push(chatHandler);
         if(_connected) {
-            onComplete();
+            onComplete(_chatId);
             return;
         }
         trace("attempting to connect to chat");
-        _chatConnector.connect(function(): Void {
+        _chatConnector.connect(function(chatId: String): Void {
             trace("chat connected");
             _chatConnector.subscribe(ChatActionNames.RECEIVE_CHAT, onReceiveChat);
             _chatConnector.subscribe(ChatActionNames.ROOM_LIST, onRoomList);
@@ -52,7 +53,8 @@ class ChatManager implements BaseObject {
             _roomListHandler = roomListHandler;
             _privateRoomCreatedHandler = privateRoomCreatedHandler;
             _chatRoomRemovedHandler = chatRoomRemovedHandler;
-            onComplete();
+            _chatId = chatId;
+            onComplete(_chatId);
         });
     }
 

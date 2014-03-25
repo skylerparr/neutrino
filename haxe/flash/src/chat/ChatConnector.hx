@@ -1,5 +1,6 @@
 package chat;
 
+import com.thoughtorigin.tictac.actions.ActionNames;
 import data.Connector;
 import assets.AssetLocator;
 import loader.AssetLoader;
@@ -21,7 +22,7 @@ class ChatConnector implements Connector {
 
     private var _subscriptionsMap: Map<String, Array<ChatTransferVO -> Void>>;
     private var _socketConnection: SocketConnection;
-    private var _connectCallback: Void -> Void;
+    private var _connectCallback: String -> Void;
     private var _numberOfBytesSent: Int;
     private var _messagesToSend: List<Message>;
     private var _currentMessage: Message;
@@ -51,7 +52,7 @@ class ChatConnector implements Connector {
     }
 
     private function get_connected(): Bool {
-        return true;
+        return connected;
     }
 
     public function init():Void {
@@ -99,13 +100,20 @@ class ChatConnector implements Connector {
     }
 
     private function onSocketConnected(event: SocketEvent): Void {
+        connected = true;
         _socketConnection.removeEventListener(SocketEvent.CONNECTED, onSocketConnected);
         _socketConnection.addEventListener(SocketEvent.DATA_RECEIVED, onDataReceived);
 
-        _connectCallback();
+        subscribe(ActionNames.CONNECT_TO_CHAT, onConnectedToChat);
+        send(ActionNames.CONNECT_TO_CHAT, null);
     }
 
-    public function connect(connectCallback: Void -> Void): Void {
+    private function onConnectedToChat(t:ChatTransferVO):Void {
+        unSubscribe(ActionNames.CONNECT_TO_CHAT, onConnectedToChat);
+        _connectCallback(t.id);
+    }
+
+    public function connect(connectCallback: String -> Void): Void {
         _connectCallback = connectCallback;
         getConnectionSettings();
     }
