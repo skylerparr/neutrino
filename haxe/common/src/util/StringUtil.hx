@@ -64,4 +64,11 @@ class StringUtil {
         }
         return arr.join(spaces);
     }
+
+    public static inline function truncate(string: String, maxChars: Int): String {
+        if(string.length > maxChars) {
+            string = string.substring(0, maxChars) + "...";
+        }
+        return string;
+    }
 }
