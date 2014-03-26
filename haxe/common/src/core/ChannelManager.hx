@@ -7,4 +7,5 @@ interface ChannelManager extends Channels {
     function exists(clientId: String): Bool;
     function getIdsFromConnection(stream: DataConnection): Array<String>;
     function getConnectionFromStream(stream:InputOutputStream): DataConnection;
+    function removeConnection(connection: DataConnection): Void;
 }
