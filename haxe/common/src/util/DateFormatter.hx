@@ -1,5 +1,14 @@
 package util;
 class DateFormatter {
+
+    public static inline var ONE_SECOND: Float = 1000;
+    public static inline var ONE_MINUTE: Float = 60 * ONE_SECOND;
+    public static inline var ONE_HOUR: Float = 60 * ONE_MINUTE;
+    public static inline var ONE_DAY: Float = 24 * ONE_HOUR;
+    public static inline var ONE_WEEK: Float = 7 * ONE_DAY;
+    public static inline var ONE_FORTNIGHT: Float = 2 * ONE_WEEK;
+    public static inline var ONE_MONTH: Float = 2 * ONE_FORTNIGHT;
+
     public static var MONTHS:Array<String> = ["January",
     "February",
     "March",
