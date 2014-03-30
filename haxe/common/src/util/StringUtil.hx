@@ -42,7 +42,7 @@ class StringUtil {
         }
     }
 
-    public static inline function fillDigits(integer: Int, maxDigits): String {
+    public static inline function fillDigits(integer: Dynamic, maxDigits: Int): String {
         var intString: String = integer + "";
         var intLen: Int = intString.length;
         var diff: Int = maxDigits - intLen;
@@ -51,6 +51,7 @@ class StringUtil {
         }
         return intString;
     }
+
 
     public static inline function addSpaces(string: String, spaceCount: Int = 1): String {
         var numChars: Int = string.length;
