@@ -1,6 +1,5 @@
 package chat;
 
-import com.thoughtorigin.tictac.actions.ActionNames;
 import data.Connector;
 import assets.AssetLocator;
 import loader.AssetLoader;
@@ -104,12 +103,12 @@ class ChatConnector implements Connector {
         _socketConnection.removeEventListener(SocketEvent.CONNECTED, onSocketConnected);
         _socketConnection.addEventListener(SocketEvent.DATA_RECEIVED, onDataReceived);
 
-        subscribe(ActionNames.CONNECT_TO_CHAT, onConnectedToChat);
-        send(ActionNames.CONNECT_TO_CHAT, null);
+        subscribe(ChatActionNames.CONNECT_TO_CHAT, onConnectedToChat);
+        send(ChatActionNames.CONNECT_TO_CHAT, null);
     }
 
     private function onConnectedToChat(t:ChatTransferVO):Void {
-        unSubscribe(ActionNames.CONNECT_TO_CHAT, onConnectedToChat);
+        unSubscribe(ChatActionNames.CONNECT_TO_CHAT, onConnectedToChat);
         _connectCallback(t.id);
     }
 
