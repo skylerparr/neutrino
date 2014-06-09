@@ -1,24 +1,56 @@
 package util;
-import io.InputOutputStream;
-import io.OutputStream;
-import io.InputStream;
-import io.InputOutputStream;
-import js.Node;
 
-class BufferInputOutputStream implements InputOutputStream {
+import io.InputOutputStream;
+import massive.munit.util.Timer;
+import massive.munit.Assert;
+import massive.munit.async.AsyncFactory;
+import mockatoo.Mockatoo;
+import mockatoo.Mockatoo.*;
+
+using mockatoo.Mockatoo;
+
+class ParserTest {
+
+    private var _parser: Parser;
+    private var _buffer: InputOutputStream;
+
+    public function new() {
+
+    }
+
+    @Before
+    public function setup():Void {
+        _buffer = new MockInputOutputStream();
+        _parser = new Parser(_buffer);
+    }
+
+    @After
+    public function tearDown():Void {
+    }
+
+    @Test
+    public function shouldPutManyFragmentedPiecesOfDataTogether(): Void {
+        var objs: Array<Dynamic> = _parser.parseJSON('{"item1":"hello');
+        Assert.areEqual(0, objs.length);
+        var objs: Array<Dynamic> = _parser.parseJSON('wor');
+        Assert.areEqual(0, objs.length);
+        var objs: Array<Dynamic> = _parser.parseJSON('ld"}');
+        Assert.areEqual(1, objs.length);
+
+    }
+}
+
+class MockInputOutputStream implements InputOutputStream {
     public var position(get, set): Int;
     @:isVar
     public var bytesAvailable(get,null) : Int;
     public var objectEncoding : Int;
 
-    public var buffer: NodeBuffer;
+    public var buffer: Array<String>;
     private var _pos: Int;
 
-    private var _bufferSize;
-
     public function new() {
-        _bufferSize = 128;
-        buffer = new NodeBuffer(_bufferSize);
+        buffer = [];
         bytesAvailable = 0;
         _pos = 0;
     }
@@ -33,7 +65,7 @@ class BufferInputOutputStream implements InputOutputStream {
     }
 
     private function get_bytesAvailable():Int {
-        return bytesAvailable - _pos;
+        return buffer.length - _pos;
     }
 
     public function readBoolean():Bool {
@@ -45,8 +77,6 @@ class BufferInputOutputStream implements InputOutputStream {
     }
 
     public function readBytes(bytes:InputOutputStream, offset:Int = 0, length:Int = 0):Void {
-        bytes.writeBytes(this, offset, length);
-        _pos += offset + length;
     }
 
     public function readDouble():Float {
@@ -54,15 +84,11 @@ class BufferInputOutputStream implements InputOutputStream {
     }
 
     public function readFloat():Float {
-        var retVal: Float = buffer.readFloatLE(_pos);
-        _pos += 4;
-        return retVal;
+        return 0;
     }
 
     public function readInt():Int {
-        var retVal: Int = buffer.readInt32LE(_pos);
-        _pos += 4;
-        return retVal;
+        return 0;
     }
 
     public function readMultiByte(length:Int, charSet:String):String {
@@ -78,7 +104,7 @@ class BufferInputOutputStream implements InputOutputStream {
     }
 
     public function readUTFBytes(length:Int):String {
-        var retVal: String = buffer.toString('utf8', _pos, length);
+        var retVal: String = buffer.join("");
         _pos += length;
         return retVal;
     }
@@ -99,21 +125,15 @@ class BufferInputOutputStream implements InputOutputStream {
     }
 
     public function writeByte(value:Int):Void {
-        buffer.writeInt8(value, 0);
-        bytesAvailable += 1;
     }
 
     public function writeDouble(value:Float):Void {
     }
 
     public function writeFloat(value:Float):Void {
-        buffer.writeFloatLE(value, 0);
-        bytesAvailable += 4;
     }
 
     public function writeInt(value:Int):Void {
-        buffer.writeInt32LE(value, 0);
-        bytesAvailable += 4;
     }
 
     public function writeMultiByte(value:String, charSet:String):Void {
@@ -129,38 +149,25 @@ class BufferInputOutputStream implements InputOutputStream {
     }
 
     public function writeUTFBytes(value:String):Void {
-        var length: Int = value.length;
-        if(length > _bufferSize) {
-            growBuffer(length);
+        for(i in _pos...value.length) {
+            buffer.push(value.charAt(i));
+            _pos++;
         }
-        buffer.write(value, _pos, length, 'utf8');
-        bytesAvailable = length;
-        _pos += length;
     }
 
     public function writeUnsignedInt(value:Int):Void {
     }
 
     public function writeBytes(bytes: InputOutputStream, offset: Int = 0, length: Int = 0): Void {
-        cast (bytes).buffer.copy(buffer, _pos, offset, length);
-        bytesAvailable = length;
     }
 
     public function send(data: String): Void {
-        writeUTFBytes(data);
     }
 
     public function clear(): Void {
-        _bufferSize = 128;
-        buffer = new NodeBuffer(_bufferSize);
-        bytesAvailable = 0;
+        buffer = [];
         _pos = 0;
     }
 
-    private inline function growBuffer(size:Int):Void {
-        _bufferSize = size;
-        buffer = new NodeBuffer(_bufferSize);
-        bytesAvailable = 0;
-        _pos = 0;
-    }
 }
+
