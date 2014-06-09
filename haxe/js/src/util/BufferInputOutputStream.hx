@@ -14,7 +14,7 @@ class BufferInputOutputStream implements InputOutputStream {
     public var buffer: NodeBuffer;
     private var _pos: Int;
 
-    private var _bufferSize;
+    private var _bufferSize: Int;
 
     public function new() {
         _bufferSize = 128;
