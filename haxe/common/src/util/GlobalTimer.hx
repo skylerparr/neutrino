@@ -9,9 +9,7 @@ class GlobalTimer {
 		var timer: Timer = new Timer(milli);
 		var id: Int = Std.int(Math.random() * 0xffffff);
 		timers.set(id, timer);
-		timer.run = function(): Void {
-			func();
-		}
+		timer.run = func;
 		return id;
 	}
 
