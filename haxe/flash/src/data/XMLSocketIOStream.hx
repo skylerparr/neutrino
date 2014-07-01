@@ -86,7 +86,7 @@ class XMLSocketIOStream implements InputOutputStream {
     }
 
     public function send(data: String): Void {
-        if(_xmlSocket.connected) {
+        if(_xmlSocket != null && _xmlSocket.connected) {
             _xmlSocket.send(data);
         }
     }
