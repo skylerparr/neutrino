@@ -29,6 +29,14 @@ class BoundValueObject implements BindableValueObject {
                 _propertyBindings.remove(propertyName);
             }
         }
+        var clean: Bool = true;
+        for(p in _propertyBindings) {
+            clean = false;
+            break;
+        }
+        if(clean) {
+            _propertyBindings = null;
+        }
     }
 
     public function unbindAll():Void {
