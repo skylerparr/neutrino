@@ -103,7 +103,7 @@ class Parser {
                         i = -1;
                     } catch(e: Dynamic) {
                         trace(e);
-                        trace(strObj);
+                        trace(strObj.substring(0, strObj.length - 1));
                         break;
                     }
                 }

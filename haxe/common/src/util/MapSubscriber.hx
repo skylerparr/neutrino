@@ -26,7 +26,7 @@ class MapSubscriber implements Subscriber {
         }
     }
 
-    public function notify(name:String, ?args: Array<Dynamic> = null):Void {
+    public function notify(name:String, args: Array<Dynamic> = null):Void {
         var handlers: List<Dynamic> = _subscribeMap.get(name);
         if(handlers != null) {
             for(handler in handlers) {

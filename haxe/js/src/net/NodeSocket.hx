@@ -73,7 +73,9 @@ class NodeSocket implements InputOutputStream {
     }
 
     public function readByte():Int {
-        return 0;
+        var retVal: Int = buffer.readInt8(_pos);
+        _pos += 1;
+        return retVal;
     }
 
     public function readBytes(bytes:InputOutputStream, offset:Int = 0, length:Int = 0):Void {
@@ -82,7 +84,9 @@ class NodeSocket implements InputOutputStream {
     }
 
     public function readDouble():Float {
-        return 0;
+        var retVal: Float = buffer.readDoubleLE(_pos);
+        _pos += 8;
+        return retVal;
     }
 
     public function readFloat():Float {
@@ -135,7 +139,11 @@ class NodeSocket implements InputOutputStream {
         _socket.write(b);
     }
 
-    public function writeDouble(value:Float):Void {}
+    public function writeDouble(value:Float):Void {
+        var b = new NodeBuffer(8);
+        b.writeDoubleLE(value, 0);
+        _socket.write(b);
+    }
 
     public function writeFloat(value:Float):Void {
         var b = new NodeBuffer(4);
@@ -157,7 +165,9 @@ class NodeSocket implements InputOutputStream {
 
     public function writeUTF(value:String):Void {}
 
-    public function writeUTFBytes(value:String):Void {}
+    public function writeUTFBytes(value:String):Void {
+        _socket.write(value);
+    }
 
     public function writeUnsignedInt(value:Int):Void {}
 
