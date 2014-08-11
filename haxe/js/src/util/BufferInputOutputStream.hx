@@ -50,7 +50,9 @@ class BufferInputOutputStream implements InputOutputStream {
     }
 
     public function readDouble():Float {
-        return 0;
+        var retVal: Float = buffer.readDoubleLE(_pos);
+        _pos += 8;
+        return retVal;
     }
 
     public function readFloat():Float {
@@ -104,6 +106,8 @@ class BufferInputOutputStream implements InputOutputStream {
     }
 
     public function writeDouble(value:Float):Void {
+        buffer.writeDoubleLE(value, 0);
+        bytesAvailable += 8;
     }
 
     public function writeFloat(value:Float):Void {
