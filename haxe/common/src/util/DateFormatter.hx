@@ -152,7 +152,7 @@ class DateFormatter {
         if (min > 0) {
             minString = min > 9 ? min + delimiter : '0' + min + delimiter;
         } else {
-            minString = "00";
+            minString = "00" + delimiter;
         }
         if (sec > 0) {
             secString = sec > 9 ? sec + "" : '0' + sec;
