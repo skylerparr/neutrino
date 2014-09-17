@@ -4,6 +4,7 @@ import io.InputOutputStream;
 class ChannelManagerImpl implements ChannelManager {
 
     public var mainChannel(get, null): DataConnection;
+    public var allChannels(get, null): Array<DataConnection>;
 
     private var _allChannels: Map<String, Array<DataConnection>>;
     private var _connectionIdMap: Map<DataConnection, Array<String>>;
@@ -15,6 +16,14 @@ class ChannelManagerImpl implements ChannelManager {
 
     private function get_mainChannel(): DataConnection {
         return null;
+    }
+
+    private function get_allChannels():Array<DataConnection> {
+        var retVal: Array<DataConnection> = [];
+        for(cxns in _allChannels) {
+            retVal = retVal.concat(cxns);
+        }
+        return retVal;
     }
 
     public function getClientChannel(clientId:String):DataConnection {
