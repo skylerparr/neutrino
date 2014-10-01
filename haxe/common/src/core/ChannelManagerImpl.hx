@@ -63,7 +63,14 @@ class ChannelManagerImpl implements ChannelManager {
     }
 
     public function removeConnection(connection:DataConnection):Void {
-        _connectionIdMap.remove(connection);
+        if(connection != null) {
+            _connectionIdMap.remove(connection);
+            for(channel in _allChannels) {
+                if(channel != null) {
+                    channel.remove(connection);
+                }
+            }
+        }
     }
 
     public function getIdsFromConnection(connection:DataConnection):Array<String> {
