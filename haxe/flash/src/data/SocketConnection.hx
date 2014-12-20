@@ -26,6 +26,7 @@ class SocketConnection extends EventDispatcher {
 	}
 
     public function disconnect(): Void {
+        _xmlConnect.close();
         _xmlConnect.removeEventListener(DataEvent.DATA, onDataReceived);
         _xmlConnect.removeEventListener(Event.CONNECT, onConnect);
         _xmlConnect.removeEventListener(Event.CLOSE, onDisconnect);

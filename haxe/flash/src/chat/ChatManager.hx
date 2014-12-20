@@ -9,7 +9,7 @@ class ChatManager implements BaseObject {
     private var _chatConnector: ChatConnector;
     private var _connected: Bool;
 
-    private var _chatRooms: List<String>;
+    private var _chatRooms: List<ChatRoomDef>;
 
     private var _chatHandlers: List<Dynamic->Void>;
     private var _roomListHandler: Array<Dynamic>->Void;
@@ -22,11 +22,13 @@ class ChatManager implements BaseObject {
 
     public function init():Void {
         _chatConnector = objectCreator.createInstance(ChatConnector);
-        _chatRooms = new List<String>();
+        _chatRooms = new List<ChatRoomDef>();
         _chatHandlers = new List<Dynamic->Void>();
     }
 
     public function dispose():Void {
+        _chatConnector.dispose();
+        _connected = false;
     }
 
     public function connect(onComplete: String->Void, chatHandler: Dynamic->Void,
@@ -39,6 +41,7 @@ class ChatManager implements BaseObject {
             return;
         }
         trace("attempting to connect to chat");
+        _chatConnector = objectCreator.createInstance(ChatConnector);
         _chatConnector.connect(function(chatId: String): Void {
             trace("chat connected");
             _chatConnector.subscribe(ChatActionNames.RECEIVE_CHAT, onReceiveChat);
@@ -48,7 +51,7 @@ class ChatManager implements BaseObject {
             _chatConnector.send(ChatActionNames.CONNECT_TO_CHAT, "");
             _connected = true;
             for(room in _chatRooms) {
-                joinChatRoom(room);
+                joinChatRoom(room.roomName, room.objectId);
             }
             _roomListHandler = roomListHandler;
             _privateRoomCreatedHandler = privateRoomCreatedHandler;
@@ -68,12 +71,12 @@ class ChatManager implements BaseObject {
         _chatHandlers.remove(chatHandler);
     }
 
-    public function joinChatRoom(roomName: String): Void {
+    public function joinChatRoom(roomName: String, objectId: String): Void {
         if(_connected) {
             trace("joined room");
-            _chatConnector.send(ChatActionNames.JOIN_CHAT_ROOM, {roomName: roomName});
+            _chatConnector.send(ChatActionNames.JOIN_CHAT_ROOM, {roomName: roomName, objectId: objectId});
         } else {
-            _chatRooms.push(roomName);
+            _chatRooms.push({roomName: roomName, objectId: objectId});
         }
     }
 
@@ -106,4 +109,9 @@ class ChatManager implements BaseObject {
             _chatRoomRemovedHandler(t.data.roomName);
         }
     }
+}
+
+typedef ChatRoomDef = {
+    roomName: String,
+    objectId: String
 }

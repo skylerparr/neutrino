@@ -36,10 +36,14 @@ class ChannelManagerImpl implements ChannelManager {
 
     public function addChannel(clientId: String, stream: DataConnection): Void {
         var connections: Array<DataConnection> = _allChannels.get(clientId);
-        if(connections == null) {
-            connections = [];
+        if(connections == null || connections.length == 0) {
+            connections = [stream];
         }
-        connections.push(stream);
+        for(connection in connections) {
+            if(connection != stream) {
+                connections.push(stream);
+            }
+        }
         _allChannels.set(clientId, connections);
         var ids: Array<String> = _connectionIdMap.get(stream);
         if(ids == null) {

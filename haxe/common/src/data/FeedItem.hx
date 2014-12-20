@@ -3,6 +3,6 @@ interface FeedItem {
     /**
      * the value of the feed
      */
-    var value(get, null): String;
+    var value(get, null): Dynamic;
 
 }

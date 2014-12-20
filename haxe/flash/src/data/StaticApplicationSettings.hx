@@ -13,7 +13,7 @@ class StaticApplicationSettings implements ApplicationSettings {
         return "assets/";
     }
 
-    public function getFeeds():Map<String, String> {
+    public function getFeeds():Map<String, Dynamic> {
         return null;
     }
 

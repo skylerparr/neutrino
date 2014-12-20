@@ -58,14 +58,14 @@ class ChatConnector implements Connector {
     }
 
     public function dispose():Void {
+        _socketConnection.removeEventListener(SocketEvent.CONNECTED, onSocketConnected);
+        _socketConnection.removeEventListener(SocketEvent.CLOSED, onSocketClosed);
         _socketConnection.disconnect();
         _subscriptionsMap = null;
         _socketConnection = null;
         _connectCallback = null;
         _messagesToSend = null;
         _parser = null;
-        assetLocator = null;
-        clientId = null;
     }
 
     private function onDataReceived(event: SocketEvent): Void {

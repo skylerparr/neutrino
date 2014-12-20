@@ -36,7 +36,7 @@ class FlashVarOverrideApplicationSettings implements ApplicationSettings {
         return baseAssetsPath;
     }
 
-    public function getFeeds():Map<String,String> {
+    public function getFeeds():Map<String,Dynamic> {
         return null;
     }
 

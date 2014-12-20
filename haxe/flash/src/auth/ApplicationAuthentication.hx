@@ -23,4 +23,6 @@ interface ApplicationAuthentication {
      *  - unknown server error
      */
     function createAuthenticationToken(success: String->Void, fail: Int->Void): Void;
+
+    function getUniqueId(): String;
 }
