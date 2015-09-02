@@ -1,4 +1,7 @@
 package assets;
+import assets.loader.URLLoaderItem;
+import assets.loader.LoaderItem;
+import assets.loader.AbstractLoader;
 import data.ApplicationSettings;
 import flash.net.URLRequest;
 import flash.display.BitmapData;
@@ -48,23 +51,21 @@ class BasicAssetLoader implements AssetLoader {
     private function doLoad(): Void {
         var loadDef: LoadDef = _loadQueue.shift();
         if(loadDef != null) {
-            var loader: LoaderProxy = getLoader(loadDef.loadText);
-            loader.addEventListener(Event.COMPLETE, function(e: Event): Void {
+            var loader: AbstractLoader = getLoader(loadDef.imageName, loadDef.loadText);
+            loader.start(function(l: AbstractLoader): Void {
                 var loadDefs: Array<LoadDef> = _loadMap.get(loadDef.imageName);
                 for(def in loadDefs) {
-                    def.onComplete(loader.content);
+                    def.onComplete(loader.getContent());
                 }
                 _loadMap.remove(loadDef.imageName);
                 doLoad();
-            });
-            loader.addEventListener(IOErrorEvent.IO_ERROR, function(e: IOErrorEvent): Void {
+            }, function(l: AbstractLoader): Void {
+                trace("load failed");
                 if(loadDef.onFail != null) {
-                    loadDef.onFail(e.text);
+                    loadDef.onFail("load failed");
                 }
                 doLoad();
             });
-            _req.url = getUrl(loadDef);
-            loader.load(_req);
         } else {
             _isLoading = false;
         }
@@ -74,11 +75,15 @@ class BasicAssetLoader implements AssetLoader {
         return applicationSettings.getBaseAssetsPath() + loadDef.imageName;
     }
 
-    public function getLoader(loadText: Bool = false): LoaderProxy {
+    public function getLoader(url: String, loadText: Bool = false): AbstractLoader {
         if(loadText) {
-            return new RealURLLoader();
+            var l = new URLLoaderItem();
+            l.url = url;
+            return l;
         } else {
-            return new RealLoader();
+            var l = new LoaderItem();
+            l.url = url;
+            return l;
         }
     }
 }

@@ -1,9 +1,6 @@
 package assets;
-import flash.system.ApplicationDomain;
-import flash.system.LoaderContext;
 import flash.net.URLRequest;
 import flash.display.Loader;
-import flash.display.Bitmap;
 import flash.events.Event;
 class RealLoader implements LoaderProxy {
 
@@ -24,6 +21,7 @@ class RealLoader implements LoaderProxy {
     }
 
     public function addEventListener(type:String, listener:Dynamic -> Void, useCapture:Bool = false, priority:Int = 0, useWeakReference:Bool = false):Void {
+        trace("adding event listener");
         _loader.contentLoaderInfo.addEventListener(type, listener, useCapture, priority, useWeakReference);
     }
 
@@ -44,6 +42,6 @@ class RealLoader implements LoaderProxy {
     }
 
     public function load(urlRequest:URLRequest):Void {
-        _loader.load(urlRequest, new LoaderContext(true, ApplicationDomain.currentDomain));
+        _loader.load(urlRequest);
     }
 }
