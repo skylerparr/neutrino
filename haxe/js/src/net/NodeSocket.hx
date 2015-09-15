@@ -1,5 +1,6 @@
 package net;
 
+import util.BufferInputOutputStream;
 import io.InputOutputStream;
 import io.InputStream;
 import haxe.io.Bytes;
@@ -172,7 +173,7 @@ class NodeSocket implements InputOutputStream {
     public function writeUnsignedInt(value:Int):Void {}
 
     public function writeBytes(bytes: InputOutputStream, offset: Int = 0, length: Int = 0): Void {
-        cast (bytes).buffer.copy(buffer, _pos, offset, length);
+        cast (bytes, BufferInputOutputStream).buffer.copy(buffer, _pos, offset, length);
     }
 
     public function clear(): Void {

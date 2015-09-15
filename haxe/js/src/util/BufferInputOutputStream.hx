@@ -146,7 +146,7 @@ class BufferInputOutputStream implements InputOutputStream {
     }
 
     public function writeBytes(bytes: InputOutputStream, offset: Int = 0, length: Int = 0): Void {
-        cast (bytes).buffer.copy(buffer, _pos, offset, length);
+        cast (bytes, BufferInputOutputStream).buffer.copy(buffer, _pos, offset, length);
         bytesAvailable = length;
     }
 
