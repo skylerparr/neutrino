@@ -51,7 +51,7 @@ class BasicAssetLoader implements AssetLoader {
     private function doLoad(): Void {
         var loadDef: LoadDef = _loadQueue.shift();
         if(loadDef != null) {
-            var loader: AbstractLoader = getLoader(loadDef.imageName, loadDef.loadText);
+            var loader: AbstractLoader = getLoader(getUrl(loadDef), loadDef.loadText);
             loader.start(function(l: AbstractLoader): Void {
                 var loadDefs: Array<LoadDef> = _loadMap.get(loadDef.imageName);
                 for(def in loadDefs) {

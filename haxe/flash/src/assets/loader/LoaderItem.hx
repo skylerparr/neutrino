@@ -1,4 +1,5 @@
 package assets.loader;
+import flash.events.Event;
 import flash.display.Bitmap;
 import openfl.events.IEventDispatcher;
 import openfl.events.ProgressEvent;
@@ -76,7 +77,8 @@ class LoaderItem extends AbstractLoader {
         getDispatcher().removeEventListener(ProgressEvent.PROGRESS, onProgress);
     }
 
-    private function onError(event: IOErrorEvent): Void {
+    private function onError(event: Event): Void {
+        trace(event);
         cleanEvents();
         if(failFunction != null) {
             failFunction(this);

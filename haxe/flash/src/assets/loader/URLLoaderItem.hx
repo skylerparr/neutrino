@@ -10,8 +10,8 @@ class URLLoaderItem extends LoaderItem {
     private var _urlLoader: URLLoader;
     private var _dataFormat: URLLoaderDataFormat = URLLoaderDataFormat.TEXT;
     private var _method: String = URLRequestMethod.GET;
-    private var _postVars: Dynamic;
-    private var _header: Array<URLRequestHeader>;
+    private var _postVars: Dynamic = {};
+    private var _header: Array<URLRequestHeader> = [];
     private var _urlRequest: URLRequest;
 
     public function new() {
