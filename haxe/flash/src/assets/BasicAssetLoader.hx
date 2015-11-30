@@ -13,13 +13,10 @@ class BasicAssetLoader implements AssetLoader {
     public var applicationSettings: ApplicationSettings;
 
     private var _req: URLRequest;
-    private var _loadQueue: Array<LoadDef>;
-    private var _isLoading: Bool;
     private var _loadMap: Map<String, Array<LoadDef>>;
 
     public function new() {
         _req = new URLRequest();
-        _loadQueue = [];
         _loadMap = new Map();
     }
 
@@ -40,35 +37,24 @@ class BasicAssetLoader implements AssetLoader {
             collection.push(loadDef);
             return;
         }
-        _loadQueue.push(loadDef);
         _loadMap.set(name, [loadDef]);
-        if(!_isLoading) {
-            _isLoading = true;
-            doLoad();
-        }
+        doLoad(loadDef);
     }
 
-    private function doLoad(): Void {
-        var loadDef: LoadDef = _loadQueue.shift();
-        if(loadDef != null) {
-            var loader: AbstractLoader = getLoader(getUrl(loadDef), loadDef.loadText);
-            loader.start(function(l: AbstractLoader): Void {
-                var loadDefs: Array<LoadDef> = _loadMap.get(loadDef.imageName);
-                for(def in loadDefs) {
-                    def.onComplete(loader.getContent());
-                }
-                _loadMap.remove(loadDef.imageName);
-                doLoad();
-            }, function(l: AbstractLoader): Void {
-                trace("load failed");
-                if(loadDef.onFail != null) {
-                    loadDef.onFail("load failed");
-                }
-                doLoad();
-            });
-        } else {
-            _isLoading = false;
-        }
+    private inline function doLoad(loadDef: LoadDef): Void {
+        var loader: AbstractLoader = getLoader(getUrl(loadDef), loadDef.loadText);
+        loader.start(function(l: AbstractLoader): Void {
+            var loadDefs: Array<LoadDef> = _loadMap.get(loadDef.imageName);
+            for(def in loadDefs) {
+                def.onComplete(loader.getContent());
+            }
+            _loadMap.remove(loadDef.imageName);
+        }, function(l: AbstractLoader): Void {
+            trace("load failed");
+            if(loadDef.onFail != null) {
+                loadDef.onFail("load failed");
+            }
+        });
     }
 
     public function getUrl(loadDef: LoadDef): String {
