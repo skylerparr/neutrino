@@ -6,7 +6,7 @@ class Serializer {
     public function new() {
     }
 
-    public static inline function serialize(value:Dynamic):Dynamic {
+    public static function serialize(value:Dynamic):Dynamic {
         var retVal: Dynamic = null;
         if(Std.is(value, Array)) {
             retVal = [];
@@ -108,6 +108,7 @@ class Serializer {
         return (type == ValueType.TUnknown ||
         type == ValueType.TInt ||
         type == ValueType.TFloat ||
+        type == ValueType.TNull ||
         type == ValueType.TBool || Std.is(fieldValue, String));
     }
 

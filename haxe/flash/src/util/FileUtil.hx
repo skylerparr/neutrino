@@ -83,7 +83,7 @@ class FileUtil {
         #elseif flash
         return "";
         #else
-        return flash.filesystem.File.applicationStorageDirectory.nativePath + "/";
+        return "/tmp/assets/"; //return flash.filesystem.File.applicationStorageDirectory.nativePath + "/";
         #end
     }
 

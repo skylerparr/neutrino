@@ -1,14 +1,10 @@
 package net;
 
-import util.BufferInputOutputStream;
 import io.InputOutputStream;
-import io.InputStream;
-import haxe.io.Bytes;
 import io.StreamEventHandler;
-import js.Node.NodeNetSocket;
-import io.InputOutputStream;
-import js.Node;
-import js.Node.NodeBuffer;
+import js.node.buffer.Buffer;
+import js.node.net.Socket;
+import util.BufferInputOutputStream;
 
 class NodeSocket implements InputOutputStream {
     public var position(get, set): Int;
@@ -16,12 +12,12 @@ class NodeSocket implements InputOutputStream {
     public var bytesAvailable(get, null):Int;
     public var objectEncoding:Int;
 
-    private var _socket: NodeNetSocket;
+    private var _socket: Socket;
     private var _handler: StreamEventHandler;
-    public var buffer: NodeBuffer;
+    public var buffer: Buffer;
     private var _pos: Int;
 
-    public function new(socket: NodeNetSocket, handler: StreamEventHandler) {
+    public function new(socket: Socket, handler: StreamEventHandler) {
         _socket = socket;
         _handler = handler;
         _socket.addListener("data", onData);
@@ -42,14 +38,14 @@ class NodeSocket implements InputOutputStream {
         return bytesAvailable - _pos;
     }
 
-    private function onData(e: NodeBuffer):Void {
+    private function onData(e: Buffer):Void {
         if(buffer == null) {
             buffer = e;
         } else {
             if(buffer.length == _pos) {
                 buffer = e;
             } else {
-                buffer = NodeBuffer.concat([buffer, e]);
+                buffer = Buffer.concat([buffer, e]);
             }
         }
         bytesAvailable = buffer.length;
@@ -135,25 +131,25 @@ class NodeSocket implements InputOutputStream {
     public function writeBoolean(value:Bool):Void {}
 
     public function writeByte(value:Int):Void {
-        var b = new NodeBuffer(1);
+        var b = new Buffer(1);
         b.writeInt8(value, 0);
         _socket.write(b);
     }
 
     public function writeDouble(value:Float):Void {
-        var b = new NodeBuffer(8);
+        var b = new Buffer(8);
         b.writeDoubleLE(value, 0);
         _socket.write(b);
     }
 
     public function writeFloat(value:Float):Void {
-        var b = new NodeBuffer(4);
+        var b = new Buffer(4);
         b.writeFloatLE(value, 0);
         _socket.write(b);
     }
 
     public function writeInt(value:Int):Void {
-        var b = new NodeBuffer(4);
+        var b = new Buffer(4);
         b.writeInt32LE(value, 0);
         _socket.write(b);
     }

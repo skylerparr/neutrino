@@ -277,6 +277,15 @@ class SerializerTest {
         var v: Dynamic = Serializer.serialize(data);
         Assert.areEqual("cat", v.foo.bar);
     }
+
+    @Test
+    public function shouldAssignNullIfSourceIsNull(): Void {
+        var data: Sample4 = new Sample4();
+        var v: Dynamic = Serializer.serialize(data);
+        Assert.isNull(v.value2);
+        var s: Sample4 = Serializer.deserialize(v);
+        Assert.isNull(s.value2);
+    }
 }
 
 class Sample1 implements ValueObject {

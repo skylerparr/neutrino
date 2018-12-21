@@ -2,11 +2,11 @@ import massive.munit.TestSuite;
 
 import ExampleTest;
 import navigation.ConfigurableStateManagerTest;
-import service.MappedServiceLocatorTest;
-import util.MapSubscriberTest;
-import util.ParserTest;
-import util.SerializerTest;
 import vo.BoundValueObjectTest;
+import service.MappedServiceLocatorTest;
+import util.SerializerTest;
+import util.ParserTest;
+import util.MapSubscriberTest;
 
 /**
  * Auto generated Test Suite for MassiveUnit.
@@ -22,10 +22,10 @@ class TestSuite extends massive.munit.TestSuite
 
 		add(ExampleTest);
 		add(navigation.ConfigurableStateManagerTest);
-		add(service.MappedServiceLocatorTest);
-		add(util.MapSubscriberTest);
-		add(util.ParserTest);
-		add(util.SerializerTest);
 		add(vo.BoundValueObjectTest);
+		add(service.MappedServiceLocatorTest);
+		add(util.SerializerTest);
+		add(util.ParserTest);
+		add(util.MapSubscriberTest);
 	}
 }

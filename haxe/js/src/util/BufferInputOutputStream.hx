@@ -4,6 +4,7 @@ import io.OutputStream;
 import io.InputStream;
 import io.InputOutputStream;
 import js.Node;
+import js.node.buffer.Buffer;
 
 class BufferInputOutputStream implements InputOutputStream {
     public var position(get, set): Int;
@@ -11,14 +12,14 @@ class BufferInputOutputStream implements InputOutputStream {
     public var bytesAvailable(get,null) : Int;
     public var objectEncoding : Int;
 
-    public var buffer: NodeBuffer;
+    public var buffer: Buffer;
     private var _pos: Int;
 
     private var _bufferSize: Int;
 
     public function new() {
         _bufferSize = 128;
-        buffer = new NodeBuffer(_bufferSize);
+        buffer = new Buffer(_bufferSize);
         bytesAvailable = 0;
         _pos = 0;
     }
@@ -156,14 +157,14 @@ class BufferInputOutputStream implements InputOutputStream {
 
     public function clear(): Void {
         _bufferSize = 128;
-        buffer = new NodeBuffer(_bufferSize);
+        buffer = new Buffer(_bufferSize);
         bytesAvailable = 0;
         _pos = 0;
     }
 
     private inline function growBuffer(size:Int):Void {
         _bufferSize = size;
-        buffer = new NodeBuffer(_bufferSize);
+        buffer = new Buffer(_bufferSize);
         bytesAvailable = 0;
         _pos = 0;
     }

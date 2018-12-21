@@ -1,9 +1,7 @@
 package net;
-import io.StreamEventHandler;
+import js.node.net.Server;
 import js.Node;
-import js.Node.NodeNetServer;
-import net.NodeSocketServer;
-import net.NodeSocket;
+import io.StreamEventHandler;
 
 class NodeSocketServer {
     private var _port: Int;
@@ -15,7 +13,7 @@ class NodeSocketServer {
     }
 
     public function start():Void {
-        var server: NodeNetServer = Node.net.createServer(function(s): Void {
+        var server: Server = js.node.Net.createServer(function(s): Void {
             trace("connected to server");
             new NodeSocket(s, _socketHandler);
         });
