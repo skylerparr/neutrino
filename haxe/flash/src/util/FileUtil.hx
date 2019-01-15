@@ -10,7 +10,7 @@ import sys.FileStat;
 #end
 import flash.net.SharedObject;
 
-@:build( ShortCuts.mirrors() )
+//@:build( ShortCuts.mirrors() )
 class FileUtil {
     public function new() {
     }
@@ -25,7 +25,6 @@ class FileUtil {
             File.saveContent(path, data);
             addSkipBackupAttributeToItem("file://" + path);
         } catch(e: Dynamic) {
-            trace(e);
         }
         #end
     }
@@ -58,7 +57,6 @@ class FileUtil {
             File.saveBytes(path, bytes);
             addSkipBackupAttributeToItem("file://" + path);
         } catch(e: Dynamic) {
-            trace(e);
         }
     }
 
@@ -85,6 +83,7 @@ class FileUtil {
         #else
         return "/tmp/assets/"; //return flash.filesystem.File.applicationStorageDirectory.nativePath + "/";
         #end
+        return "/tmp/assets/";
     }
 
     public static inline function removeFile(path: String): Void {

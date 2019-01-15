@@ -36,13 +36,12 @@ class EmbeddedAndLoadingAssetLoader extends BasicAssetLoader {
             return;
         } else {
             try {
-                var textData: String = Assets.getText(name);
+                var textData: String = Assets.getText('assets/${name}');
                 if(!StringUtil.isBlank(textData)) {
                     onComplete(textData);
                     return;
                 }
             } catch(e: Dynamic) {
-                trace(e);
             }
         }
         super.loadText(name, onComplete, onFail);

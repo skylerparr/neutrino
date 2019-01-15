@@ -14,7 +14,7 @@ class ImageManifest {
 
     macro public static function getManifestAuthority(): Expr {
         var items: Array<String> = [];
-        var mainPath: String = "assets/";
+        var mainPath: String = "Assets/";
         #if ios
         mainPath = Context.resolvePath(mainPath);
         #end
@@ -62,7 +62,7 @@ class ImageManifest {
             pos: Context.currentPos(),
             kind: FFun({
                 args: [],
-                expr: Context.parse("trace('authority manifest created.')", Context.currentPos()),
+                expr: Context.parse("null", Context.currentPos()),
                 params: [],
                 ret: null
             })

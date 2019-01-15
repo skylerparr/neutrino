@@ -110,7 +110,7 @@ class SVGRasterizerTool {
             var assetName: String = regx.replace(name, "_");
             assetName = StringTools.replace(name, "/", "_") + "_" + width + "x" + height + ".bmp";
 
-            bitmapData = getDiskCachedImage(name, assetName, path, Std.int(width), Std.int(height));
+            bitmapData = null;//getDiskCachedImage(name, assetName, path, Std.int(width), Std.int(height));
             if(bitmapData == null) {
             #end
                 GlobalTimer.setTimeout(function(): Void {
