@@ -53,9 +53,11 @@ class CachedAssetLocator implements AssetLocator {
         _assetsLoading.remove(name);
         cacheCount = {count: 1, bitmapData: bitmapData};
         _cacheMap.set(name, cacheCount);
-        var load: Array<BitmapData->Void> =_loading.get(name);
-        for(complete in load) {
-            complete(bitmapData);
+        var load: Array<BitmapData->Void> = _loading.get(name);
+        if(load != null) {
+          for(complete in load) {
+              complete(bitmapData);
+          }
         }
         _loading.remove(name);
         notifySubscribers();
