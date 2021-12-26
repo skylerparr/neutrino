@@ -18,7 +18,7 @@ class ObjectFactory implements ObjectCreator {
       retVal = Type.createInstance(clazz, constructorArgs);
       injector.injectInto(retVal);
     }
-    if(Std.is(retVal, BaseObject)) {
+    if(Std.isOfType(retVal, BaseObject)) {
       retVal.init();
     }
     return retVal;
